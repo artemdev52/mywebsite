@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My website</title>
+<style>
+#text{
+  display: none;
+}
+body{
+  background-color: black;
+}
+#btn1{
+  background-color: green;
+}
+#h1{
+  color: green;
+}
+#h2{
+  color: green;
+}
+#h3{
+  color: green;
+}
+#p{
+  color: green;
+}
+#ul{
+  color: green;
+}
+#btn2{
+  background-color: green;
+}
+#a{
+  color: green;
+}
+</style>
+</head>
+<body>
+    <h1 id=h1>This is my 1st website</h1>
+  <h2 id=h2>I'm only learning HTML</h2>
+    <h3 id=h3>So please don't judge me</h3>
+  <a id=a href="https://google.com">Link to this website</a>
+  <ul id=ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+  <button id="btn1" onclick="buttonclick()">Clicks: 0</button>
+<p id="text">0</p>
+  <button id="btn2" onclick="reset()">Reset click counter</button>
+<script>
+let clicks = 0;
+
+function buttonclick() {
+  clicks = clicks + 1;
+  // update button text
+  document.getElementById("btn1").textContent = "Clicks: " + clicks; 
+}
+  
+  //resets clicks
+function reset() {
+  document.getElementById("btn1").textContent = "Clicks: 0";
+  clicks = 0;
+}
+
+</script>
+</body>
+</html>
