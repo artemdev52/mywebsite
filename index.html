@@ -11,6 +11,7 @@ body{
 }
 #btn1{
   background-color: green;
+  border: 2px solid red;
 }
 #h1{
   color: green;
@@ -29,9 +30,16 @@ body{
 }
 #btn2{
   background-color: green;
+  border: 2px solid red;
 }
 #a{
   color: green;
+}
+#par{
+  color: green;
+}
+#txt{
+  color: green
 }
 </style>
 </head>
@@ -40,7 +48,7 @@ body{
   <h2 id=h2>I'm only learning HTML</h2>
     <h3 id=h3>So please don't judge me</h3>
   <a id=a href="https://artemdev52.github.io/mywebsite/">Link to this website</a>
-  <p>idk why i put the link if you can just copy it</p>
+  <p id=par>idk why i put the link if you can just copy it</p>
   <ul id=ul>
   <li>Item 1</li>
   <li>Item 2</li>
@@ -48,6 +56,7 @@ body{
   <button id="btn1" onclick="buttonclick()">Clicks: 0</button>
 <p id="text">0</p>
   <button id="btn2" onclick="reset()">Reset click counter</button>
+<p id=txt>Press CTRL+U to see the code!</p>
 <script>
 let clicks = 0;
 
