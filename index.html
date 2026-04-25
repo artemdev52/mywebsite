@@ -104,19 +104,19 @@ function convert10to2() {
   }
   document.getElementById("p").textContent = "Your number in binary is " + output; 
 }
+let question = 'false'
 function replace() {
-  let question = 'false';
   let new_name = document.getElementById('input').value;
   if (new_name == 'fish') {
-    document.getElementById('h1').textContent = new_name;
     question = 'false';
     alert('https://www.youtube.com/watch?v=haJfJAwpViI');
+    document.getElementById('h1').textContent = new_name;
   } else if(new_name == '67') {
     question = 'false';
     alert('89');
   } else if(new_name == 'Type something...') {
-    document.getElementById('h1').textContent = new_name;
     alert('Are you THAT bored?!');
+    document.getElementById('h1').textContent = new_name;
     question = 'true';
   } else if(new_name == 'скажи 300') {
     question = 'false';
