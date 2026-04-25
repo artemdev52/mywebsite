@@ -109,22 +109,28 @@ function replace() {
   let new_name = document.getElementById('input').value;
   if (new_name == 'fish') {
     document.getElementById('h1').textContent = new_name;
+    question = 'false';
     alert('https://www.youtube.com/watch?v=haJfJAwpViI');
   } else if(new_name == '67') {
+    question = 'false';
     alert('89');
   } else if(new_name == 'Type something...') {
     document.getElementById('h1').textContent = new_name;
     alert('Are you THAT bored?!');
     question = 'true';
   } else if(new_name == 'скажи 300') {
+    question = 'false';
     alert('Запретили программисты');
   } else if(new_name == 'secret') {
+    question = 'false';
     alert('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1');
     document.getElementById('h1').textContent = new_name;
   } else if (question == 'true' && new_name == 'yes i am') {
+    question = 'false';
     alert('OK')
   } else {
     document.getElementById('h1').textContent = new_name;
+    question = 'false';
   }
 }
 </script>
