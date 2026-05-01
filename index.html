@@ -53,7 +53,8 @@ button {
 <h1 id=h1>This is my 1st website</h1>
 <input id='input' placeholder='Type something...'></input>
 <div id='div'>
-<button onclick='replace_h1()'>Replace the heading</button></div>
+<button onclick='replace_h1()'>Replace the heading</button>
+<button onclick='replace_title()''>Replace the title</button></div>
 <p></p>
 <a id=a href="https://artemdev52.github.io/mywebsite/">Link to this website</a>
 <p id=par>idk why i put the URL if you can just copy it</p>
@@ -128,8 +129,6 @@ function replace_h1() {
   } else if (question == 'true' && new_name == 'yes i am') {
     question = 'false';
     alert('OK');
-  } else if (new_name == 'change the title') {
-    document.getElementById('div').innerHTML = "<button onclick='replace_h1()'>Replace the heading</button> <button onclick='replace_title()''>Replace the title</button>"
   } else if (new_name == 'alert("Hello, World!")') {
     alert('Hello, World!');
   } else {
