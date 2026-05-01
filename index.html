@@ -50,7 +50,6 @@ button {
 </style>
 </head>
 <body>
-<title id='title'>My website</title>
 <h1 id=h1>This is my 1st website</h1>
 <input id='input' placeholder='Type something...'></input>
 <div id='div'>
@@ -140,7 +139,7 @@ function replace_h1() {
 }
 function replace_title() {
   let new_name = document.getElementById('input').value;
-  document.getElementById('title').textContent = new_name;
+  document.title = new_name;
 }
 </script>
 </body>
