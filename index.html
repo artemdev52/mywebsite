@@ -3,9 +3,6 @@
 <head>
 <title>My website</title>
 <style>
-#text{
-  display: none;
-}
 body{
   background-color: black;
 }
@@ -47,13 +44,17 @@ button {
 #p {
   color: #0aff0a;
 }
+#div {
+  margin: 5px
+}
 </style>
 </head>
 <body>
- <title>My website</title>
+<title id='title'>My website</title>
 <h1 id=h1>This is my 1st website</h1>
 <input id='input' placeholder='Type something...'></input>
-<button onclick='replace()'>Replace</button>
+<div id='div'>
+<button onclick='replace_h1()'>Replace the heading</button></div>
 <p></p>
 <a id=a href="https://artemdev52.github.io/mywebsite/">Link to this website</a>
 <p id=par>idk why i put the URL if you can just copy it</p>
@@ -105,7 +106,7 @@ function convert10to2() {
   document.getElementById("p").textContent = "Your number in binary is " + output; 
 }
 let question = 'false'
-function replace() {
+function replace_h1() {
   let new_name = document.getElementById('input').value;
   if (new_name == 'fish') {
     question = 'false';
@@ -127,11 +128,19 @@ function replace() {
     document.getElementById('h1').textContent = new_name;
   } else if (question == 'true' && new_name == 'yes i am') {
     question = 'false';
-    alert('OK')
+    alert('OK');
+  } else if (new_name == 'change the title') {
+    document.getElementById('div').innerHTML = "<button onclick='replace_h1()'>Replace the heading</button> <button onclick='replace_title()''>Replace the title</button>"
+  } else if (new_name == 'alert("Hello, World!")') {
+    alert('Hello, World!');
   } else {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
   }
+}
+function replace_title() {
+  let new_name = document.getElementById('input').value;
+  document.getElementById('title').textContent = new_name;
 }
 </script>
 </body>
