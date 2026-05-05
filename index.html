@@ -131,6 +131,9 @@ function replace_h1() {
     alert('OK');
   } else if (new_name == 'alert("Hello, World!")') {
     alert('Hello, World!');
+  } else if (new_name == 'driving in my car') {
+    alert('https://www.youtube.com/watch?v=u5NqO2v_xnY');
+    document.getElementById('h1').textContent = new_name;
   } else {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
