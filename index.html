@@ -56,7 +56,7 @@ function buttonclick() {
   clicks = clicks + 1;
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
-  box.style.width = (208 + Math.floor(Math.log10(clicks+1))*10) + "px";
+  box.style.width = (208 + Math.floor(Math.log10(clicks))*10) + "px";
 }
 function reset() {
   document.getElementById("btn1").textContent = "Clicks: 0";
