@@ -56,13 +56,13 @@ function buttonclick() {
   clicks = clicks + 1;
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
-  box.style.width = (208 + Math.floor(Math.log10(clicks))*10) + "px";
+  box.style.width = (208 + Math.floor(Math.log10(clicks))*8) + "px";
 }
 function reset() {
   document.getElementById("btn1").textContent = "Clicks: 0";
   clicks = 0;
   let box = document.getElementById('box');
-  box.style.width = (208 + Math.floor(Math.log10(clicks+1))*10) + "px";
+  box.style.width = (208 + Math.floor(Math.log10(clicks+1))*8) + "px";
 }
 function convert10to2() {
   let value = Number(document.getElementById("num").value);
