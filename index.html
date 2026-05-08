@@ -14,7 +14,7 @@ body{
   color: #0aff0a;
   border-radius: 8px;
 }
-#div {
+input {
   margin: 5px
 }
 #box {
@@ -46,7 +46,10 @@ button {
 <button class='butin' onclick="convert10to2()">Decimal to binary</button>
 <p id=p></p>
 <input class='butin' id='input_color' placeholder='Type a color...'>
+<div>
 <button class='butin' onclick='change_background()'>Change the background</button>
+<button class='butin' onclick='change_text()'>Change the text</button>
+</div>
 <script>
 let clicks = 0;
 function buttonclick() {
@@ -127,6 +130,10 @@ function replace_title() {
 function change_background() {
   let color = document.getElementById('input_color').value;
   document.body.style.background = color;
+}
+function change_text() {
+  let color = document.getElementById('input_color').value;
+  document.body.style.color = color;
 }
 </script>
 </body>
