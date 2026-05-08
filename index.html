@@ -134,6 +134,10 @@ function change_background() {
 function change_text() {
   let color = document.getElementById('input_color').value;
   document.body.style.color = color;
+  let butins = document.querySelectorAll(".butin"); 
+  for (let something of butins) {
+    something.style.color = color
+  }
 }
 </script>
 </body>
