@@ -4,45 +4,15 @@
 <title>My website</title>
 <style>
 body{
-  background-color: black;
-}
-#h1{
+  background-color: #000000;
   color: #0aff0a;
 }
-#h2{
-  color: #0aff0a;
-}
-#h3{
-  color: #0aff0a;
-}
-#p{
-  color: #0aff0a;
-}
-#a{
-  color: #0aff0a;
-}
-#par{
-  color: #0aff0a;
-}
-#txt{
-  color: #0aff0a;
-}
-input {
-  padding: 10px;
-  border: 2px solid #0aff0a;
-  background-color: black;
-  color: #0aff0a;
-  border-radius: 8px;
-}
-button {
-  background-color: black;
-  color: #0aff0a;
+.butin {
   padding: 8px;
   border: 2px solid #0aff0a;
-  border-radius: 8px;
-}
-#p {
+  background-color: black;
   color: #0aff0a;
+  border-radius: 8px;
 }
 #div {
   margin: 5px
@@ -51,19 +21,20 @@ button {
 </head>
 <body>
 <h1 id=h1>This is my 1st website</h1>
-<input id='input' placeholder='Type something...'></input>
+<input class='butin' id='input' placeholder='Type something...'></input>
 <div id='div'>
-<button onclick='replace_h1()'>Replace the heading</button>
-<button onclick='replace_title()''>Replace the title</button></div>
+<button class='butin' onclick='replace_h1()'>Replace the heading</button>
+<button class='butin' onclick='replace_title()''>Replace the title</button></div>
 <p></p>
-<a id=a href="https://artemdev52.github.io/mywebsite/">Link to this website</a>
 <p id=par>idk why i put the URL if you can just copy it</p>
-<button id="btn1" onclick="buttonclick()">Clicks: 0</button>
-<button onclick="reset()">Reset click counter</button>
+<button class='butin' id="btn1" onclick="buttonclick()">Clicks: 0</button>
+<button class='butin' onclick="reset()">Reset click counter</button>
 <p id=txt>Press CTRL+U to see the code!</p>
-<input id=num type="number" placeholder="Type a number">
-<button onclick="convert10to2()">Decimal to binary</button>
+<input id=num class='butin' type="number" placeholder="Type a number">
+<button class='butin' onclick="convert10to2()">Decimal to binary</button>
 <p id=p></p>
+<input class='butin' id='input_color' placeholder='Type a color...'>
+<button class='butin' onclick='change_background()'>Change the background</button>
 <script>
 let clicks = 0;
 
@@ -142,6 +113,10 @@ function replace_h1() {
 function replace_title() {
   let new_name = document.getElementById('input').value;
   document.title = new_name;
+}
+function change_background() {
+  let color = document.getElementById('input_color').value;
+  document.body.style.background = color;
 }
 </script>
 </body>
