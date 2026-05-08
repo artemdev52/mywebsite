@@ -40,6 +40,7 @@ button {
 <div id='box' style='width: 208px'>
 <button class='butin' id="btn1" onclick="buttonclick()">Clicks: 0</button>
 <button class='butin' onclick="reset()">Reset click counter</button>
+<p id='high'>Your best score: [undefined]</p>
 </div>
 <p id=txt>Press CTRL+U to see the code!</p>
 <input id=num class='butin' type="number" placeholder="Type a number">
@@ -63,11 +64,18 @@ function buttonclick() {
     alert('Stop already!');
   } 
 }
+document.getElementById('high').textContent = 'Your best score:' + clicks
+localStorage.setItem('high_clicks', 0)
 function reset() {
   document.getElementById("btn1").textContent = "Clicks: 0";
-  clicks = 0;
   let box = document.getElementById('box');
-  box.style.width = (208 + Math.floor(Math.log10(clicks+1))*8) + "px";
+  box.style.width = (208 + Math.floor(Math.log10(1))*8) + "px";
+  let high_score = localStorage.getItem('high_clicks');
+  if (clicks > high_score) {
+    localStorage.setItem('high_clicks', clicks)
+    document.getElementById('high').textContent = 'Your best score:' + clicks;
+  }
+  clicks = 0;
 }
 function convert10to2() {
   let value = Number(document.getElementById("num").value);
