@@ -57,6 +57,11 @@ function buttonclick() {
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
   box.style.width = (208 + Math.floor(Math.log10(clicks))*8) + "px";
+  if (clicks == 1000) {
+    alert('Why would you press the button 1000 times?!');
+  } else if (clicks == 2000) {
+    alert('Stop already!');
+  } 
 }
 function reset() {
   document.getElementById("btn1").textContent = "Clicks: 0";
