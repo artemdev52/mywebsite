@@ -99,6 +99,12 @@ function buttonclick() {
       let li = document.createElement("li");
       li.textContent = "Finger Destroyer (click the button 2000 times)";
       document.getElementById("achievements").appendChild(li);
+  } else if (clicks == 10000) {
+    if (localStorage.getItem('got10000') === null)
+      localStorage.setItem('got10000', 'true');
+      let li = document.createElement("li");
+      li.textContent = "What Is Grass? (click the button 10000 times)";
+      document.getElementById("achievements").appendChild(li);
   } 
 }
 let got1000 = localStorage.getItem('got1000');
@@ -111,6 +117,12 @@ let got2000 = localStorage.getItem('got2000');
 if (got2000 == 'true') {
   let li = document.createElement("li");
   li.textContent = "Finger Destroyer (click the button 2000 times)";
+  document.getElementById("achievements").appendChild(li);
+}
+let got10000 = localStorage.getItem('got10000');
+if (got10000 == 'true') {
+  let li = document.createElement("li");
+  li.textContent = "What Is Grass? (click the button 10000 times)";
   document.getElementById("achievements").appendChild(li);
 }
 let remembered_pi = localStorage.getItem('pi_knowledge');
