@@ -88,32 +88,32 @@ function buttonclick() {
     alert('Why would you press the button 1000 times?!');
     localStorage.setItem('got1000', 'true');
     let li = document.createElement("li");
-    li.textContent = "1000 clicks!";
+    li.textContent = "Click Machine (click the button 1000 times)";
     document.getElementById("achievements").appendChild(li);
   } else if (clicks == 2000) {
     alert('Stop already!');
     localStorage.setItem('got2000', 'true');
     let li = document.createElement("li");
-    li.textContent = "2000 clicks!";
+    li.textContent = "Finger Destroyer (click the button 2000 times)";
     document.getElementById("achievements").appendChild(li);
   } 
 }
 let got1000 = localStorage.getItem('got1000');
 if (got1000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "1000 clicks!";
+  li.textContent = "Click Machine (click the button 1000 times)";
   document.getElementById("achievements").appendChild(li);
 }
 let got2000 = localStorage.getItem('got2000');
 if (got2000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "2000 clicks!";
+  li.textContent = "Finger Destroyer (click the button 2000 times)";
   document.getElementById("achievements").appendChild(li);
 }
 let remembered_pi = localStorage.getItem('pi_knowledge');
 if (remembered_pi == 'true') {
     let li = document.createElement("li");
-    li.textContent = "Remembered 50 characters of π!";
+    li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
     document.getElementById("achievements").appendChild(li);
 }
 let high_score = Number(localStorage.getItem('high_clicks'));
@@ -125,7 +125,7 @@ function reset() {
   if (clicks > high_score) {
     localStorage.setItem('high_clicks', clicks)
     high_score = clicks;
-    document.getElementById('high').textContent = 'Your best score: ' + clicks;
+    document.getElementById('high').textContent = 'Your best score:' + clicks;
   }
   clicks = 0;
 }
@@ -202,7 +202,7 @@ function replace_h1() {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
     let li = document.createElement("li");
-    li.textContent = "Remembered 50 characters of π!";
+    li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
     document.getElementById("achievements").appendChild(li);
   } else {
     document.getElementById('h1').textContent = new_name;
