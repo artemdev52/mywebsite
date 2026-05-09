@@ -186,7 +186,6 @@ function convert10to2() {
   }
   document.getElementById("p").textContent = "Your number in binary is " + output; 
 }
-localStorage.setItem('math', false);
 let question = 'false'
 function replace_h1() {
   let new_name = document.getElementById('input').value;
@@ -228,7 +227,7 @@ function replace_h1() {
     document.getElementById('h1').textContent = new_name;
   } else if (new_name == 'math quest') {
     question = 'false';
-    if (localStorage.getItem('math') === 'false') {
+    if (localStorage.getItem('math') === null) {
       let answer = prompt('7*3=?')
       if (answer === '21') {
         answer = prompt('12^2=?')
@@ -275,7 +274,7 @@ function change_text() {
 }
 function clear_achievements() {
   let high_score = localStorage.getItem('high_clicks');
-  localStorage.clear;
+  localStorage.clear();
   localStorage.setItem('high_clicks', high_score);
   document.getElementById("achievements").innerHTML = "";
 }
