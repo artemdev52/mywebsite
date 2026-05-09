@@ -117,7 +117,7 @@ if (remembered_pi == 'true') {
     document.getElementById("achievements").appendChild(li);
 }
 let high_score = Number(localStorage.getItem('high_clicks'));
-document.getElementById('high').textContent = 'Your best score:' + high_score
+document.getElementById('high').textContent = 'Your best score: ' + high_score
 function reset() {
   document.getElementById("btn1").textContent = "Clicks: 0";
   let box = document.getElementById('box');
@@ -125,7 +125,7 @@ function reset() {
   if (clicks > high_score) {
     localStorage.setItem('high_clicks', clicks)
     high_score = clicks;
-    document.getElementById('high').textContent = 'Your best score:' + clicks;
+    document.getElementById('high').textContent = 'Your best score: ' + clicks;
   }
   clicks = 0;
 }
