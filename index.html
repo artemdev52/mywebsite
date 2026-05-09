@@ -116,12 +116,12 @@ if (remembered_pi == 'true') {
     li.textContent = "Euler Is Proud Of You (type 50 digits of π without mistakes)";
     document.getElementById("achievements").appendChild(li);
 }
-/*let math = localStorage.getItem('math');
+let math = localStorage.getItem('math');
 if (math == 'true') {
     let li = document.createElement("li");
     li.textContent = "Mathematician (complete the Math Quest)";
     document.getElementById("achievements").appendChild(li);
-}*/
+}
 let high_score = Number(localStorage.getItem('high_clicks'));
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 function reset() {
