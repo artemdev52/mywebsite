@@ -41,7 +41,6 @@ button {
 <button class='butin' id="btn1" onclick="buttonclick()">Clicks: 0</button>
 <button class='butin' onclick="reset()">Reset click counter</button>
 <p id='high'>Your best score: [undefined]</p>
-<button class='butin' onclick='reset_highscore()'>Reset best score</button>
 </div>
 <p id=txt>Press CTRL+U to see the code!</p>
 <input id=num class='butin' type="number" placeholder="Type a number">
@@ -76,10 +75,6 @@ function reset() {
     document.getElementById('high').textContent = 'Your best score:' + clicks;
   }
   clicks = 0;
-}
-function reset_highscore() {
-  localStorage.setItem('high_clicks', 0);
-  document.getElementById('high').textContent = 'Your best score: ' + 0;
 }
 function convert10to2() {
   let value = Number(document.getElementById("num").value);
