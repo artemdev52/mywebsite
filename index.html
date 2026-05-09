@@ -113,7 +113,13 @@ if (got2000 == 'true') {
 let remembered_pi = localStorage.getItem('pi_knowledge');
 if (remembered_pi == 'true') {
     let li = document.createElement("li");
-    li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
+    li.textContent = "Euler Is Proud Of You (type 50 digits of π without mistakes)";
+    document.getElementById("achievements").appendChild(li);
+}
+let math = localStorage.getItem('math');
+if (math == 'true') {
+    let li = document.createElement("li");
+    li.textContent = "Mathematician (complete the Math Quest)";
     document.getElementById("achievements").appendChild(li);
 }
 let high_score = Number(localStorage.getItem('high_clicks'));
@@ -165,7 +171,7 @@ function convert10to2() {
   }
   document.getElementById("p").textContent = "Your number in binary is " + output; 
 }
-
+localStorage.setItem('math', false);
 let question = 'false'
 function replace_h1() {
   let new_name = document.getElementById('input').value;
@@ -206,24 +212,28 @@ function replace_h1() {
     document.getElementById("achievements").appendChild(li);
   } else if (new_name == 'math quest') {
     question = 'false';
-    let answer = prompt('7*3=?')
-    if (answer === '21') {
-      answer = prompt('12^2=?')
-      if (answer === '144') {
-        answer = prompt('√169=?')
-        if (answer === '13') {
-          alert('Achievement unlocked')
-          let li = document.createElement("li");
-          li.textContent = "Mathematician (complete the Math Quest)";
-          document.getElementById("achievements").appendChild(li);
+    if (localStorage.getItem('math') === 'false') {
+      let answer = prompt('7*3=?')
+      if (answer === '21') {
+        answer = prompt('12^2=?')
+        if (answer === '144') {
+          answer = prompt('√169=?')
+          if (answer === '13') {
+            localStorage.setItem('math', true);
+            let li = document.createElement("li");
+            li.textContent = "Mathematician (complete the Math Quest)";
+            document.getElementById("achievements").appendChild(li);
+          } else {
+            alert('Try again');
+          }
         } else {
-          alert('Try again')
+          alert('Try again');
         }
       } else {
-        alert('Try again')
+        alert('Try again');
       }
     } else {
-      alert('Try again')
+      alert('Achievement is already achieved');
     }
   } else {
     document.getElementById('h1').textContent = new_name;
