@@ -76,6 +76,7 @@ button {
 <p>Achievements:</p>
 <ul id='achievements'>
 </ul>
+<button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
 </div>
 <script>
 let clicks = 0;
@@ -86,16 +87,18 @@ function buttonclick() {
   box.style.width = (208 + Math.floor(Math.log10(clicks))*8) + "px";
   if (clicks == 1000) {
     alert('Why would you press the button 1000 times?!');
-    localStorage.setItem('got1000', 'true');
-    let li = document.createElement("li");
-    li.textContent = "Click Machine (click the button 1000 times)";
-    document.getElementById("achievements").appendChild(li);
+    if (localStorage.getItem('got1000') === null)
+      localStorage.setItem('got1000', 'true');
+      let li = document.createElement("li");
+      li.textContent = "Click Machine (click the button 1000 times)";
+      document.getElementById("achievements").appendChild(li);
   } else if (clicks == 2000) {
     alert('Stop already!');
-    localStorage.setItem('got2000', 'true');
-    let li = document.createElement("li");
-    li.textContent = "Finger Destroyer (click the button 2000 times)";
-    document.getElementById("achievements").appendChild(li);
+    if (localStorage.getItem('got2000') === null)
+      localStorage.setItem('got2000', 'true');
+      let li = document.createElement("li");
+      li.textContent = "Finger Destroyer (click the button 2000 times)";
+      document.getElementById("achievements").appendChild(li);
   } 
 }
 let got1000 = localStorage.getItem('got1000');
@@ -204,12 +207,13 @@ function replace_h1() {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
   } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
-    localStorage.setItem('pi_knowledge', 'true');
+    if (localStorage.getItem('pi_knowledge') === null)
+      localStorage.setItem('pi_knowledge', 'true');
+      question = 'false';
+      let li = document.createElement("li");
+      li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
+      document.getElementById("achievements").appendChild(li);
     document.getElementById('h1').textContent = new_name;
-    question = 'false';
-    let li = document.createElement("li");
-    li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
-    document.getElementById("achievements").appendChild(li);
   } else if (new_name == 'math quest') {
     question = 'false';
     if (localStorage.getItem('math') === 'false') {
@@ -240,7 +244,6 @@ function replace_h1() {
     question = 'false';
   }
 }
-
 function replace_title() {
   let new_name = document.getElementById('input').value;
   document.title = new_name;
@@ -257,6 +260,12 @@ function change_text() {
   for (let something of butins) {
     something.style.color = color
   }
+}
+function clear_achievements() {
+  let high_score = localStorage.getItem('high_clicks');
+  localStorage.clear;
+  localStorage.setItem('high_clicks', high_score);
+  document.getElementById("achievements").innerHTML = "";
 }
 </script>
 </body>
