@@ -6,6 +6,11 @@
 body{
   background-color: #000000;
   color: #0aff0a;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 .butin {
   padding: 8px;
@@ -15,7 +20,7 @@ body{
   border-radius: 8px;
 }
 input {
-  margin: 5px
+  margin: 5px;
 }
 #box {
   border: 2px solid red;
@@ -25,12 +30,26 @@ input {
   gap: 5px;
   flex-wrap: wrap;
 }
+#outerbox {
+  padding: 20px;
+  border: 2px solid #0aff0a;
+  border-radius: 20px;
+}
 button {
   flex-shrink: 0;
+}
+#topleft {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: 2px solid #0aff0a;
+  padding: 10px;
+  border-radius: 10px;
 }
 </style>
 </head>
 <body>
+<div id='outerbox'>
 <h1 id=h1>This is my 1st website</h1>
 <input class='butin' id='input' placeholder='Type something...'></input>
 <div id='div'>
@@ -52,6 +71,12 @@ button {
 <button class='butin' onclick='change_background()'>Change the background</button>
 <button class='butin' onclick='change_text()'>Change the text</button>
 </div>
+</div>
+<div id='topleft'>
+<p>Achievements:</p>
+<ul id='achievements'>
+</ul>
+</div>
 <script>
 let clicks = 0;
 function buttonclick() {
@@ -61,9 +86,35 @@ function buttonclick() {
   box.style.width = (208 + Math.floor(Math.log10(clicks))*8) + "px";
   if (clicks == 1000) {
     alert('Why would you press the button 1000 times?!');
+    localStorage.setItem('got1000', 'true');
+    let li = document.createElement("li");
+    li.textContent = "1000 clicks!";
+    document.getElementById("achievements").appendChild(li);
   } else if (clicks == 2000) {
     alert('Stop already!');
+    localStorage.setItem('got2000', 'true');
+    let li = document.createElement("li");
+    li.textContent = "2000 clicks!";
+    document.getElementById("achievements").appendChild(li);
   } 
+}
+let got1000 = localStorage.getItem('got1000');
+if (got1000 == 'true') {
+  let li = document.createElement("li");
+  li.textContent = "1000 clicks!";
+  document.getElementById("achievements").appendChild(li);
+}
+let got2000 = localStorage.getItem('got2000');
+if (got2000 == 'true') {
+  let li = document.createElement("li");
+  li.textContent = "2000 clicks!";
+  document.getElementById("achievements").appendChild(li);
+}
+let remembered_pi = localStorage.getItem('pi_knowledge');
+if (remembered_pi == 'true') {
+    let li = document.createElement("li");
+    li.textContent = "Remembered 50 characters of π!";
+    document.getElementById("achievements").appendChild(li);
 }
 let high_score = Number(localStorage.getItem('high_clicks'));
 document.getElementById('high').textContent = 'Your best score:' + high_score
@@ -111,6 +162,7 @@ function convert10to2() {
   }
   document.getElementById("p").textContent = "Your number in binary is " + output; 
 }
+
 let question = 'false'
 function replace_h1() {
   let new_name = document.getElementById('input').value;
@@ -137,18 +189,29 @@ function replace_h1() {
     alert('OK');
   } else if (new_name == 'alert("Hello, World!")') {
     alert('Hello, World!');
+    question = 'false';
   } else if (new_name == 'driving in my car') {
     alert('https://www.youtube.com/watch?v=u5NqO2v_xnY');
     document.getElementById('h1').textContent = new_name;
+    question = 'false';
+  } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
+    localStorage.setItem('pi_knowledge', 'true');
+    document.getElementById('h1').textContent = new_name;
+    question = 'false';
+    let li = document.createElement("li");
+    li.textContent = "Remembered 50 characters of π!";
+    document.getElementById("achievements").appendChild(li);
   } else {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
   }
 }
+
 function replace_title() {
   let new_name = document.getElementById('input').value;
   document.title = new_name;
 }
+
 function change_background() {
   let color = document.getElementById('input_color').value;
   document.body.style.background = color;
