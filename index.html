@@ -137,6 +137,12 @@ if (math == 'true') {
     li.textContent = "Mathematician (complete the Math Quest)";
     document.getElementById("achievements").appendChild(li);
 }
+let artist = localStorage.getItem('artist');
+if (artist == 'true') {
+  let li = document.createElement("li");
+  li.textContent = "Artist (change color of background)";
+  document.getElementById("achievements").appendChild(li);
+}
 let high_score = Number(localStorage.getItem('high_clicks'));
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 function reset() {
@@ -263,6 +269,17 @@ function replace_title() {
 function change_background() {
   let color = document.getElementById('input_color').value;
   document.body.style.background = color;
+  let butins = document.querySelectorAll(".butin"); 
+  for (let something of butins) {
+    something.style.background = color;
+  }
+  let artist = localStorage.getItem('artist');
+  if (artist === null) {
+    localStorage.setItem('artist', 'true')
+    let li = document.createElement("li");
+    li.textContent = "Artist (change color of background)";
+    document.getElementById("achievements").appendChild(li);
+  }
 }
 function change_text() {
   let color = document.getElementById('input_color').value;
