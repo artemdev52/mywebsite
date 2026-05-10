@@ -79,6 +79,9 @@ button {
 <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
 </div>
 <script>
+function randint(a, b) {
+  return Math.floor(Math.random() * (b - a + 1)) + a;
+}
 let clicks = 0;
 function buttonclick() {
   clicks = clicks + 1;
@@ -116,26 +119,26 @@ if (got1000 == 'true') {
 let got2000 = localStorage.getItem('got2000');
 if (got2000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "Finger Destroyer (click the button 2000 times)";
+  li.textContent = "Finger Destroyer (press the button 2000 times)";
   document.getElementById("achievements").appendChild(li);
 }
 let got10000 = localStorage.getItem('got10000');
 if (got10000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "What Is Grass? (click the button 10000 times)";
+  li.textContent = "What Is Grass? (press the button 10000 times)";
   document.getElementById("achievements").appendChild(li);
 }
 let remembered_pi = localStorage.getItem('pi_knowledge');
 if (remembered_pi == 'true') {
-    let li = document.createElement("li");
-    li.textContent = "Euler Is Proud Of You (type 50 digits of π without mistakes)";
-    document.getElementById("achievements").appendChild(li);
+  let li = document.createElement("li");
+  li.textContent = "Euler Is Proud Of You (type 50 digits of π without mistakes)";
+  document.getElementById("achievements").appendChild(li);
 }
 let math = localStorage.getItem('math');
 if (math == 'true') {
-    let li = document.createElement("li");
-    li.textContent = "Mathematician (complete the Math Quest)";
-    document.getElementById("achievements").appendChild(li);
+  let li = document.createElement("li");
+  li.textContent = "Mathematician (complete the Math Quest)";
+  document.getElementById("achievements").appendChild(li);
 }
 let artist = localStorage.getItem('artist');
 if (artist == 'true') {
@@ -233,17 +236,18 @@ function replace_h1() {
     document.getElementById('h1').textContent = new_name;
   } else if (new_name == 'math quest') {
     question = 'false';
-    if (localStorage.getItem('math') === null) {
-      let answer = prompt('7*3=?')
-      if (answer === '21') {
-        answer = prompt('12^2=?')
-        if (answer === '144') {
-          answer = prompt('√169=?')
-          if (answer === '13') {
-            localStorage.setItem('math', true);
-            let li = document.createElement("li");
-            li.textContent = "Mathematician (complete the Math Quest)";
-            document.getElementById("achievements").appendChild(li);
+      let a = randint(1, 10)
+      let b = randint(1, 10)
+      let answer = prompt(a + '*' + b + '=?')
+      if (Number(answer) === a*b) {
+        a = randint(3, 16);
+        answer = prompt(a + '^2=?');
+        if (Number(answer) === a^2) {
+          a = randint(3, 16);
+          a = a**2;
+          answer = prompt('√'+a+'=?');
+          if (Number(answer) === a**(1/2)) {
+            alert('Math quest completed!')
           } else {
             alert('Try again');
           }
@@ -253,14 +257,20 @@ function replace_h1() {
       } else {
         alert('Try again');
       }
+    if (localStorage.getItem('math') === null) {
+      localStorage.setItem('math', true);
+      let li = document.createElement("li");
+      li.textContent = "Mathematician (complete the Math Quest)";
+      document.getElementById("achievements").appendChild(li);
     } else {
-      alert('Achievement is already achieved');
+      alert('Achievement is already achieved.');
     }
   } else {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
   }
 }
+
 function replace_title() {
   let new_name = document.getElementById('input').value;
   document.title = new_name;
@@ -286,7 +296,7 @@ function change_text() {
   document.body.style.color = color;
   let butins = document.querySelectorAll(".butin"); 
   for (let something of butins) {
-    something.style.color = color
+    something.style.color = color;
   }
 }
 function clear_achievements() {
