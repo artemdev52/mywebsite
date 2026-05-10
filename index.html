@@ -227,13 +227,13 @@ function replace_h1() {
     document.getElementById('h1').textContent = new_name;
     question = 'false';
   } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
-    if (localStorage.getItem('pi_knowledge') === null)
+    if (localStorage.getItem('pi_knowledge') === null) {
       localStorage.setItem('pi_knowledge', 'true');
-      question = 'false';
       let li = document.createElement("li");
       li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
       document.getElementById("achievements").appendChild(li);
-    document.getElementById('h1').textContent = new_name;
+    }
+    question = 'false';
   } else if (new_name == 'math quest') {
     question = 'false';
       let a = randint(1, 10)
