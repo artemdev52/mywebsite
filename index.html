@@ -199,7 +199,7 @@ let forbidden_words = ['fuck', 'porn', 'sex', 'developer is bad', 'shit', 'trump
 let question = 'false'
 function replace_h1() {
   let new_name = document.getElementById('input').value;
-  if (new_name.toLowerCase() in forbidden_words) {
+  if (forbidden_words.includes(new_name.toLowerCase())) {
     alert("No. It's forbidden");
   } else {
     if (new_name == 'fish') {
