@@ -242,27 +242,31 @@ function replace_h1() {
       if (Number(answer) === a*b) {
         a = randint(3, 16);
         answer = prompt(a + '^2=?');
-        if (Number(answer) === a^2) {
+        if (Number(answer) === a**2) {
           a = randint(3, 16);
           a = a**2;
           answer = prompt('√'+a+'=?');
           if (Number(answer) === a**(1/2)) {
-            alert('Math quest completed!')
+            alert('Math quest completed!');
+            let permission = true;
           } else {
-            alert('Try again');
+            alert('Try again later');
+            let permission = false;
           }
         } else {
-          alert('Try again');
+          alert('Try again later');
+          let permission = false;
         }
       } else {
-        alert('Try again');
+        alert('Try again later');
+        let permission = false;
       }
-    if (localStorage.getItem('math') === null) {
+    if ((localStorage.getItem('math') === null) && (permission)) {
       localStorage.setItem('math', true);
       let li = document.createElement("li");
       li.textContent = "Mathematician (complete the Math Quest)";
       document.getElementById("achievements").appendChild(li);
-    } else {
+    } else if (permission === true) {
       alert('Achievement is already achieved.');
     }
   } else {
@@ -270,7 +274,6 @@ function replace_h1() {
     question = 'false';
   }
 }
-
 function replace_title() {
   let new_name = document.getElementById('input').value;
   document.title = new_name;
