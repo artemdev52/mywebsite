@@ -234,7 +234,7 @@ function replace_h1() {
       if (localStorage.getItem('pi_knowledge') === null) {
         localStorage.setItem('pi_knowledge', 'true');
         let li = document.createElement("li");
-        li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
+        li.textContent = "Euler is proud of you (type 50 digits of π correctly)";
         document.getElementById("achievements").appendChild(li);
       }
       question = 'false';
@@ -278,7 +278,11 @@ function replace_h1() {
   
 function replace_title() {
   let new_name = document.getElementById('input').value;
-  document.title = new_name;
+  if (forbidden_words.includes(new_name.toLowerCase())) {
+    alert("No. It's forbidden");
+  } else {
+    document.title = new_name;
+  }
 }
 
 function change_background() {
