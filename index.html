@@ -195,66 +195,73 @@ function convert10to2() {
   }
   document.getElementById("p").textContent = "Your number in binary is " + output; 
 }
+let forbidden_words = ['fuck', 'porn', 'sex', 'developer is bad', 'shit', 'trump', 'putin', 'ркн лучший', 'pornhub', 'nigger', 'dota', 'dota2']
 let question = 'false'
 function replace_h1() {
   let new_name = document.getElementById('input').value;
-  if (new_name == 'fish') {
-    question = 'false';
-    alert('https://www.youtube.com/watch?v=haJfJAwpViI');
-    document.getElementById('h1').textContent = new_name;
-  } else if(new_name == '67') {
-    question = 'false';
-    alert('89');
-  } else if(new_name == 'Type something...') {
-    alert('Are you THAT bored?!');
-    document.getElementById('h1').textContent = new_name;
-    question = 'true';
-  } else if(new_name == 'скажи 300') {
-    question = 'false';
-    alert('Запретили программисты');
-  } else if(new_name == 'secret') {
-    question = 'false';
-    alert('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1');
-    document.getElementById('h1').textContent = new_name;
-  } else if (question == 'true' && new_name == 'yes i am') {
-    question = 'false';
-    alert('OK');
-  } else if (new_name == 'alert("Hello, World!")') {
-    alert('Hello, World!');
-    question = 'false';
-  } else if (new_name == 'driving in my car') {
-    alert('https://www.youtube.com/watch?v=u5NqO2v_xnY');
-    document.getElementById('h1').textContent = new_name;
-    question = 'false';
-  } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
-    if (localStorage.getItem('pi_knowledge') === null) {
-      localStorage.setItem('pi_knowledge', 'true');
-      let li = document.createElement("li");
-      li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
-      document.getElementById("achievements").appendChild(li);
-    }
-    question = 'false';
-  } else if (new_name == 'math quest') {
-    question = 'false';
-    let a = randint(1, 10)
-    let b = randint(1, 10)
-    let answer = prompt(a + '*' + b + '=?')
-    if (Number(answer) === a*b) {
-      a = randint(3, 16);
-      answer = prompt(a + '^2=?');
-      if (Number(answer) === a**2) {
+  if (new_word.toLowerCase() in forbidden_words) {
+    alert("No. It's forbidden");
+  } else {
+    if (new_name == 'fish') {
+      question = 'false';
+      alert('https://www.youtube.com/watch?v=haJfJAwpViI');
+      document.getElementById('h1').textContent = new_name;
+    } else if(new_name == '67') {
+      question = 'false';
+      alert('89');
+    } else if(new_name == 'Type something...') {
+      alert('Are you THAT bored?!');
+      document.getElementById('h1').textContent = new_name;
+      question = 'true';
+    } else if(new_name == 'скажи 300') {
+      question = 'false';
+      alert('Запретили программисты');
+    } else if(new_name == 'secret') {
+      question = 'false';
+      alert('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1');
+      document.getElementById('h1').textContent = new_name;
+    } else if (question == 'true' && new_name == 'yes i am') {
+      question = 'false';
+      alert('OK');
+    } else if (new_name == 'alert("Hello, World!")') {
+      alert('Hello, World!');
+      question = 'false';
+    } else if (new_name == 'driving in my car') {
+      alert('https://www.youtube.com/watch?v=u5NqO2v_xnY');
+      document.getElementById('h1').textContent = new_name;
+      question = 'false';
+    } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
+      if (localStorage.getItem('pi_knowledge') === null) {
+        localStorage.setItem('pi_knowledge', 'true');
+        let li = document.createElement("li");
+        li.textContent = "Euler is proud of you (type 50 digits of π without mistakes)";
+        document.getElementById("achievements").appendChild(li);
+      }
+      question = 'false';
+    } else if (new_name == 'math quest') {
+      question = 'false';
+      let a = randint(1, 10)
+      let b = randint(1, 10)
+      let answer = prompt(a + '*' + b + '=?')
+      if (Number(answer) === a*b) {
         a = randint(3, 16);
-        a = a**2;
-        answer = prompt('√'+a+'=?');
-        if (Number(answer) === a**(1/2)) {
-          alert('Math quest completed!');
-          if (localStorage.getItem('math') === null) {
-            localStorage.setItem('math', true);
-            let li = document.createElement("li");
-            li.textContent = "Mathematician (complete the Math Quest)";
-            document.getElementById("achievements").appendChild(li);
+        answer = prompt(a + '^2=?');
+        if (Number(answer) === a**2) {
+          a = randint(3, 16);
+          a = a**2;
+          answer = prompt('√'+a+'=?');
+          if (Number(answer) === a**(1/2)) {
+            alert('Math quest completed!');
+            if (localStorage.getItem('math') === null) {
+              localStorage.setItem('math', true);
+              let li = document.createElement("li");
+              li.textContent = "Mathematician (complete the Math Quest)";
+              document.getElementById("achievements").appendChild(li);
+            } else {
+              alert('Achievement is already achieved.');
+            }
           } else {
-            alert('Achievement is already achieved.');
+            alert('Try again later');
           }
         } else {
           alert('Try again later');
@@ -263,11 +270,9 @@ function replace_h1() {
         alert('Try again later');
       }
     } else {
-      alert('Try again later');
+      document.getElementById('h1').textContent = new_name;
+      question = 'false';
     }
-  } else {
-    document.getElementById('h1').textContent = new_name;
-    question = 'false';
   }
 }
   
