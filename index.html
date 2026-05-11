@@ -71,6 +71,8 @@ button {
 <button class='butin' onclick='change_background()'>Change the background</button>
 <button class='butin' onclick='change_text()'>Change the text</button>
 </div>
+<p></p>
+<button class='butin' onclick='rotate()'>Rotate</button>
 </div>
 <div id='topleft'>
 <p>Achievements:</p>
@@ -81,6 +83,19 @@ button {
 <script>
 function randint(a, b) {
   return Math.floor(Math.random() * (b - a + 1)) + a;
+}
+function rotate() {
+  let angle = 0;
+  let interval = setInterval(function() {
+    angle += 1;
+    let box1 = document.getElementById('outerbox');
+    let box2 = document.getElementById('topleft');
+    box1.style.transform = 'rotate('+angle+'deg)';
+    box2.style.transform = 'rotate('+(-angle)+'deg)';
+    if (angle >= 360) {
+      clearInterval(interval);
+    }
+  }, 7)
 }
 let clicks = 0;
 function buttonclick() {
