@@ -105,24 +105,27 @@ function buttonclick() {
   box.style.width = (208 + Math.floor(Math.log10(clicks))*8) + "px";
   if (clicks == 1000) {
     alert('Why would you press the button 1000 times?!');
-    if (localStorage.getItem('got1000') === null)
+    if (localStorage.getItem('got1000') === null){
       localStorage.setItem('got1000', 'true');
       let li = document.createElement("li");
       li.textContent = "Click Machine (click the button 1000 times)";
       document.getElementById("achievements").appendChild(li);
+    }
   } else if (clicks == 2000) {
     alert('Stop already!');
-    if (localStorage.getItem('got2000') === null)
+    if (localStorage.getItem('got2000') === null){
       localStorage.setItem('got2000', 'true');
       let li = document.createElement("li");
       li.textContent = "Finger Destroyer (click the button 2000 times)";
       document.getElementById("achievements").appendChild(li);
+    }
   } else if (clicks == 10000) {
-    if (localStorage.getItem('got10000') === null)
+    if (localStorage.getItem('got10000') === null){
       localStorage.setItem('got10000', 'true');
       let li = document.createElement("li");
       li.textContent = "What Is Grass? (click the button 10000 times)";
       document.getElementById("achievements").appendChild(li);
+    }
   } 
 }
 let got1000 = localStorage.getItem('got1000');
@@ -143,10 +146,16 @@ if (got10000 == 'true') {
   li.textContent = "What Is Grass? (press the button 10000 times)";
   document.getElementById("achievements").appendChild(li);
 }
+let sacrifice = localStorage.getItem('sacrifice');
+if (sacrifice == 'true') {
+  let li = document.createElement("li");
+  li.textContent = "The Sacrifice (reset high score when it's 2000+ clicks)";
+  document.getElementById("achievements").appendChild(li);
+}
 let remembered_pi = localStorage.getItem('pi_knowledge');
 if (remembered_pi == 'true') {
   let li = document.createElement("li");
-  li.textContent = "Euler Is Proud Of You (type 50 digits of π correctly)";
+  li.textContent = "Euler Is Proud Of You (type 50 digits of π without mistakes)";
   document.getElementById("achievements").appendChild(li);
 }
 let math = localStorage.getItem('math');
@@ -177,6 +186,14 @@ function reset() {
 function reset_highscore() {
   let a = confirm('Are you sure?')
   if (a) {
+    if (localStorage.getItem('high_clicks') >= 2000) {
+      if (localStorage.getItem('sacrifice') === null) {
+        localStorage.setItem('sacrifice', true)
+        let li = document.createElement("li");
+        li.textContent = "The Sacrifice (reset high score when it's 2000+ clicks)";
+        document.getElementById("achievements").appendChild(li);
+      }
+    }
     localStorage.setItem('high_clicks', 0);
     high_score = 0;
     document.getElementById('high').textContent = 'Your best score: ' + 0;
