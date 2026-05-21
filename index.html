@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>My website</title>
-<!--
-Are you cheating?
-Or just looking for secrets?
-I know you're here.
-Else you wouldn't read this.
-Could you go away from here, please?
-There's no fun at all if you know all the answers.
--->
+<title>My website</title
 <style>
 body{
   background-color: #000000;
@@ -89,25 +81,47 @@ button {
 <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
 </div>
 <script>
+if (localStorage.getItem('adder') == null) {
+  localStorage.setItem('adder', 1);
+}
 function randint(a, b) {
   return Math.floor(Math.random() * (b - a + 1)) + a;
 }
+let adder = Number(localStorage.getItem('adder'))
+const now = [new Date().getDate(), new Date().getMonth() + 1]
+const april_fools = [1, 4]
+let x = 0
+let angle = 0
+const rotating = document.getElementById("rotate");
 function rotate() {
-  let angle = 0;
-  let interval = setInterval(function() {
-    angle += 1;
-    let box1 = document.getElementById('outerbox');
-    let box2 = document.getElementById('topleft');
-    box1.style.transform = 'rotate('+angle+'deg)';
-    box2.style.transform = 'rotate('+(-angle)+'deg)';
-    if (angle >= 360) {
-      clearInterval(interval);
+  if (now.toString() == april_fools.toString()) {
+    x += 3;
+    angle += 7;
+    rotating.style.transform = `translateX(${x}px) rotate(${angle}deg)`;
+    if (x > window.innerWidth/2 + 150) {
+      rotating.remove()
     }
-  }, 7)
+    requestAnimationFrame(rotate);
+  } else {
+    let interval = setInterval(function() {
+      angle += 1;
+      let box1 = document.getElementById('outerbox');
+      let box2 = document.getElementById('topleft');
+      box1.style.transform = 'rotate('+angle+'deg)';
+      box2.style.transform = 'rotate('+(-angle)+'deg)';
+      if (angle >= 360) {
+        clearInterval(interval);
+      }
+    }, 7)
+  }
 }
 let clicks = 0;
 function buttonclick() {
-  clicks = clicks + 1;
+  if (now.toString() === april_fools.toString()) {
+    clicks -= adder;
+  } else {
+    clicks = clicks + adder;
+  }
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
   box.style.width = (208 + Math.floor(Math.log10(clicks))*8) + "px";
@@ -116,7 +130,7 @@ function buttonclick() {
       localStorage.setItem('got1000', 'true');
       alert("Achievement unlocked!");
       let li = document.createElement("li");
-      li.textContent = "Click Machine (click the button 1000 times)";
+      li.textContent = "Click Machine (reach 1000 clicks)";
       document.getElementById("achievements").appendChild(li);
     }
   } else if (clicks == 2000) {
@@ -124,7 +138,7 @@ function buttonclick() {
       localStorage.setItem('got2000', 'true');
       alert("Achievement unlocked!");
       let li = document.createElement("li");
-      li.textContent = "Finger Destroyer (click the button 2000 times)";
+      li.textContent = "Finger Destroyer (reach 2000 clicks)";
       document.getElementById("achievements").appendChild(li);
     }
   } else if (clicks == 10000) {
@@ -132,7 +146,7 @@ function buttonclick() {
       localStorage.setItem('got10000', 'true');
       alert("Achievement unlocked!");
       let li = document.createElement("li");
-      li.textContent = "What Is Grass? (click the button 10000 times)";
+      li.textContent = "What Is Grass? (reach 10000 clicks)";
       document.getElementById("achievements").appendChild(li);
     }
   } 
@@ -140,19 +154,19 @@ function buttonclick() {
 let got1000 = localStorage.getItem('got1000');
 if (got1000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "Click Machine (click the button 1000 times)";
+  li.textContent = "Click Machine (reach 1000 clicks)";
   document.getElementById("achievements").appendChild(li);
 }
 let got2000 = localStorage.getItem('got2000');
 if (got2000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "Finger Destroyer (press the button 2000 times)";
+  li.textContent = "Finger Destroyer (reach 2000 clicks)";
   document.getElementById("achievements").appendChild(li);
 }
 let got10000 = localStorage.getItem('got10000');
 if (got10000 == 'true') {
   let li = document.createElement("li");
-  li.textContent = "What Is Grass? (press the button 10000 times)";
+  li.textContent = "What Is Grass? (reach 10000 clicks)";
   document.getElementById("achievements").appendChild(li);
 }
 let sacrifice = localStorage.getItem('sacrifice');
@@ -177,6 +191,11 @@ let artist = localStorage.getItem('artist');
 if (artist == 'true') {
   let li = document.createElement("li");
   li.textContent = "Artist (change color of background)";
+  document.getElementById("achievements").appendChild(li);
+}
+if (localStorage.getItem('konami') == 'true') {
+  let li = document.createElement("li");
+  li.textContent = "Wait, That Works? (enter the Konami code)";
   document.getElementById("achievements").appendChild(li);
 }
 let high_score = Number(localStorage.getItem('high_clicks'));
@@ -354,20 +373,39 @@ function change_text() {
   }
 }
 function clear_achievements() {
-  let high_score = localStorage.getItem('high_clicks');
+  high_score = localStorage.getItem('high_clicks');
+  adder = Number(localStorage.getItem('adder'))
   localStorage.clear();
   localStorage.setItem('high_clicks', high_score);
+  localStorage.setItem('adder', adder);
   document.getElementById("achievements").innerHTML = "";
 }
-</script>
-
-<!--
-Are you cheating?
-Or just looking for secrets?
-I know you're here.
-Else you wouldn't read this.
-Could you go away from here, please?
-There's no fun at all if you know all the answers.
--->
+const secret = [
+  'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+  'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
+  'b', 'a'
+];
+let input = [];
+document.addEventListener("keydown", (e) => {
+  input.push(e.key);
+  if (input.length > secret.length) {
+    input.shift();
+  }
+  if (input.join() === secret.join()) {
+    if (now.toString() === april_fools.toString()) {
+      adder -= 1;
+    } else {
+      adder += 1;
+    }
+    localStorage.setItem('adder', adder);
+    if (localStorage.getItem('konami') == null) {
+      alert('Achievement unlocked!');
+      localStorage.setItem('konami', 'true');
+      let li = document.createElement("li");
+      li.textContent = "Wait, That Works? (enter the Konami code)";
+      document.getElementById("achievements").appendChild(li);
+    }
+  }
+});
 </body>
 </html>
