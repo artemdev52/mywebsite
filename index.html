@@ -101,6 +101,19 @@ button {
 <script>
 let amount = 0
 let secret_amount = 0
+function achieved(id, text, list) {
+  let li = document.createElement("li");
+  li.textContent = text;
+  document.getElementById(list).appendChild(li);
+  localStorage.setItem(id, 'true');
+  if (list === 'secrets') {
+    secret_amount++;
+    document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+  } else if (list === 'normal') {
+    amount ++;
+    document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  }
+}
 if (localStorage.getItem('adder') == null) {
   localStorage.setItem('adder', 1);
 }
@@ -147,14 +160,9 @@ let low_score = Number(localStorage.getItem('low_clicks'))
 function buttonclick() {
   if (now.toString() === april_fools.toString()) {
     clicks -= adder;
-    if (localStorage.getItem('negative') === null) {
-      localStorage.setItem('negative', 'true');
+    if (localStorage.getItem('negative') === null && clicks < 0) {
+      achieved('negative', 'Negative Progress (reach negative clicks)', 'secrets');
       alert("Achievement unlocked!");
-      let li = document.createElement("li");
-      li.textContent = "Negative Progress (reach negative clicks)";
-      document.getElementById("achievements").appendChild(li);
-      secret_amount += 1;
-      document.getElementById("progress").textContent = amount + '/5 secret achievements unlocked';
     }
   } else {
     clicks = clicks + adder;
@@ -164,33 +172,18 @@ function buttonclick() {
   box.style.width = (208 + Math.floor(Math.log10(Math.abs(clicks)))*8 + 8) + "px";
   if (clicks == 1000) {
     if (localStorage.getItem('got1000') === null){
-      localStorage.setItem('got1000', 'true');
       alert("Achievement unlocked!");
-      let li = document.createElement("li");
-      li.textContent = "Click Machine (reach 1000 clicks)";
-      document.getElementById("achievements").appendChild(li);
-      amount += 1;
-      document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+      achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
     }
   } else if (clicks == 2000) {
     if (localStorage.getItem('got2000') === null){
-      localStorage.setItem('got2000', 'true');
       alert("Achievement unlocked!");
-      let li = document.createElement("li");
-      li.textContent = "Finger Destroyer (reach 2000 clicks)";
-      document.getElementById("achievements").appendChild(li);
-      amount += 1;
-      document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+      achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
     }
   } else if (clicks == 10000) {
     if (localStorage.getItem('got10000') === null){
-      localStorage.setItem('got10000', 'true');
       alert("Achievement unlocked!");
-      let li = document.createElement("li");
-      li.textContent = "What Is Grass? (reach 10000 clicks)";
-      document.getElementById("achievements").appendChild(li);
-      amount += 1;
-      document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+      achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
     }
   } 
   if (clicks > high_score) {
@@ -199,104 +192,56 @@ function buttonclick() {
     document.getElementById('high').textContent = 'Your best score: ' + clicks;
   } else if (clicks < low_score) {
     localStorage.setItem('low_clicks', clicks)
-    low = clicks;
+    low_score = clicks;
     document.getElementById('low').textContent = 'Your worst score: ' + clicks;
   }
 }
 let got1000 = localStorage.getItem('got1000');
 if (got1000 == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Click Machine (reach 1000 clicks)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
 }
 let got2000 = localStorage.getItem('got2000');
 if (got2000 == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Finger Destroyer (reach 2000 clicks)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
 }
 let got10000 = localStorage.getItem('got10000');
 if (got10000 == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "What Is Grass? (reach 10000 clicks)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
 }
 let sacrifice = localStorage.getItem('sacrifice');
 if (sacrifice == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "The Sacrifice (reset high score when it's 2000+ clicks)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'normal');
 }
 let negative = localStorage.getItem('negative');
 if (negative == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Negative Progress (reach negative clicks)";
-  document.getElementById("secrets").appendChild(li);
-  secret_amount += 1;
-  document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+  achieved('negative', 'Negative Progress (reach negative clicks)', 'secrets');
 }
 let remembered_pi = localStorage.getItem('pi_knowledge');
 if (remembered_pi == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Euler Is Proud Of You (type 50 digits of π correctly)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'normal');
 }
 let math = localStorage.getItem('math');
 if (math == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Mathematician (complete the Math Quest)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('math', "Mathematician (complete the Math Quest)", 'normal');
 }
 let artist = localStorage.getItem('artist');
 if (artist == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Artist (change color of background)";
-  document.getElementById("achievements").appendChild(li);
-  amount += 1;
-  document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+  achieved('artist', "Artist (change the color of background)", 'normal');
 }
 if (localStorage.getItem('konami') == 'true') {
-  let li = document.createElement("li");
-  li.textContent = "Wait, That Works? (enter the Konami code)";
-  document.getElementById("secrets").appendChild(li);
-  secret_amount += 1;
-  document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+  achieved('konami', 'Wait, That Works? (enter the Konami code)', 'secrets');
 }
 let wrong = localStorage.getItem('wrong');
 if (wrong == 'true') {
-  let li = document.createElement("li");
-  li.textContent = 'Good At Being Wrong (press "The wrong one" button)';
-  document.getElementById("secrets").appendChild(li);
-  secret_amount += 1;
-  document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+  achieved('wrong', 'Good At Being Wrong (press "The wrong one" button)', 'secrets');
 }
 let exam = localStorage.getItem('exam');
 if (exam == 'true') {
-  let li = document.createElement("li");
-  li.textContent = 'Final Exam (complete the April Fools quest)';
-  document.getElementById("secrets").appendChild(li);
-  secret_amount += 1;
-  document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+  achieved('exam', 'Final Exam (complete the April Fools quest)', 'secrets');
 }
 let qwerty = localStorage.getItem('qwerty');
 if (qwerty == 'true') {
-  let li = document.createElement("li");
-  li.textContent = 'Reverse Psychology (answer "qwerty123" on 5th question)';
-  document.getElementById("secrets").appendChild(li);
-  secret_amount += 1;
-  document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+  achieved('qwerty', 'Reverse Psychology (answer "qwerty123" on 5th question)', 'secrets')
 }
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 document.getElementById('low').textContent = 'Your worst score: ' + low_score
@@ -311,13 +256,8 @@ function reset_highscore() {
   if (a) {
     if (localStorage.getItem('high_clicks') >= 2000) {
       if (localStorage.getItem('sacrifice') === null) {
-        localStorage.setItem('sacrifice', true)
         alert("Achievement unlocked!");
-        let li = document.createElement("li");
-        li.textContent = "The Sacrifice (reset high score when it's 2000+ clicks)";
-        document.getElementById("achievements").appendChild(li);
-        amount += 1;
-        document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+        achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'normal');
       }
     }
     localStorage.setItem('high_clicks', 0);
@@ -390,13 +330,8 @@ function replace_h1() {
       question = 'false';
     } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
       if (localStorage.getItem('pi_knowledge') === null) {
-        localStorage.setItem('pi_knowledge', 'true');
         alert("Achievement unlocked!");
-        let li = document.createElement("li");
-        li.textContent = "Euler is proud of you (type 50 digits of π correctly)";
-        document.getElementById("achievements").appendChild(li);
-        amount += 1;
-        document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+        achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'normal');
       }
       question = 'false';
     } else if (new_name == 'math quest') {
@@ -414,13 +349,8 @@ function replace_h1() {
           if (Number(answer) === a**(1/2)) {
             alert('Math quest completed!');
             if (localStorage.getItem('math') === null) {
-              localStorage.setItem('math', true);
               alert("Achievement unlocked!");
-              let li = document.createElement("li");
-              li.textContent = "Mathematician (complete the Math Quest)";
-              document.getElementById("achievements").appendChild(li);
-              amount += 1;
-              document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+              achieved('math', "Mathematician (complete the Math Quest)", 'normal');
             } else {
               alert('Achievement is already achieved.');
             }
@@ -458,13 +388,8 @@ function change_background() {
   }
   let artist = localStorage.getItem('artist');
   if (artist === null) {
-    localStorage.setItem('artist', 'true')
     alert("Achievement unlocked!");
-    let li = document.createElement("li");
-    li.textContent = "Artist (change color of background)";
-    document.getElementById("achievements").appendChild(li);
-    amount += 1;
-    document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+    achieved('artist', "Artist (change the color of background)", 'normal');
   }
 }
 function change_text() {
@@ -510,12 +435,7 @@ document.addEventListener("keydown", (e) => {
     localStorage.setItem('adder', adder);
     if (localStorage.getItem('konami') == null) {
       alert('Achievement unlocked!');
-      localStorage.setItem('konami', 'true');
-      let li = document.createElement("li");
-      li.textContent = "Wait, That Works? (enter the Konami code)";
-      document.getElementById("secret_achievements").appendChild(li);
-      secret_amount += 1;
-      document.getElementById("secret_progress").textContent = secret_amount + '/5 achievements unlocked';
+      achieved('konami', 'Wait, That Works? (enter the Konami code)', 'secrets');
     }
   }
 });
