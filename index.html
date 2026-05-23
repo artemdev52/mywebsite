@@ -86,7 +86,7 @@ button {
 </div>
 <div id='topleft'>
 <p>Achievements:</p>
-<ul id='achievements'>
+<ul id='normal'>
 </ul>
 <p id='progress'>0/8 achievement unlocked</p>
 <p>Secret achievements:</p>
@@ -296,7 +296,7 @@ function convert10to2() {
 let forbidden_words = ['fuck', 'porn', 'sex', 'developer is bad', 'shit', 'trump', 'putin', 'ркн лучший', 'pornhub', 'nigger', 'dota', 'dota2']
 let question = 'false'
 function replace_h1() {
-  let new_name = document.getElementById('input').value;
+  let new_name = document.getElementById('input').value.trim();
   if (forbidden_words.includes(new_name.toLowerCase())) {
     alert("No. It's forbidden");
   } else {
