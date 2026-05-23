@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>April fools!</title>
+<style>
+#quest {
+  display: none;
+  border: 2px solid #0aff0a;
+  background-color: black;
+  color: #0aff0a;
+  border-radius: 10px;
+  padding: 10px;
+  align-self: center;
+  align-items: center;
+}
+.dark {
+  color: #0aff0a;
+  background-color: black;
+}
+.darker {
+  color: #0aff0a;
+  background-color: black;
+  border: 2px solid #0aff0a;
+  border-radius: 8px;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+<div id='start'>
+  <h1 id='h1'>You can choose only one. Choose wisely. Do NOT choose the wrong one. What would you choose?</h1>
+  <button class='button' onclick='one()'>Only one</button>
+  <button class='button' id='wisely' onclick='wisely()'>Wisely</button>
+  <button class='button' id='wrong' onclick='wrong()'>The wrong one</button>
+</div>
+<div id='quest'>
+  <h2 id='question'>1. Which of these is Konami code?</h2>
+  <button onclick='correct()' class='darker'>A. ↑ ↑ ↓ ↓ ← → ← → B A</button>
+  <button onclick='incorrect()' class='darker'>B. ↑ ↓ ↑ ↓ ← → ← → A B</button>
+  <button onclick='incorrect()' class='darker'>C. ↑ ↓ ↑ ↓ ← ← → → B A</button>
+</div>
+<script>
+const now = [new Date().getDate(), new Date().getMonth() + 1]
+const april_fools = [1, 4]
+if (now.join() != april_fools.join()) {
+  document.getElementById('h1').textContent = 'Wait until April Fools';
+  let buttons = document.querySelectorAll(".button");
+  document.title = 'Wait please';
+  for (let button of buttons) {
+    button.remove();
+  }
+}
+function one() {
+  const wise = document.getElementById('wisely');
+  const wrong = document.getElementById('wrong');
+  wise.remove();
+  wrong.remove();
+  document.getElementById('h1').textContent = 'Only 1 remained.';
+}
+let  question = 0;
+function wisely() {
+  let buttons = document.querySelectorAll(".button");
+  document.title = 'Answer wisely.'
+  for (let button of buttons) {
+    button.remove();
+  }
+  document.getElementById('quest').style.display = 'block';
+  document.body.classList.add('dark');
+  document.getElementById('h1').textContent = 'LET THE FUN BEGIN!!!';
+}
+function wrong() {
+  alert('Achievement achieved!'); /*Achievement name: "Good at being wrong"*/
+  localStorage.setItem('wrong', 'true');
+  document.getElementById('start').remove();
+}
+function incorrect() {
+  alert('Wrong answer.');
+  document.getElementById('quest').remove();
+  document.getElementById('h1').remove();
+}
+function correct() {
+  question = 2;
+  document.getElementById('quest').innerHTML = '<h2 id="question">2. What was the name of this tab before you pressed "wisely"?</h2> <input class="darker" placeholder="Write yout answer" id="input"></input><button id="submit" class="darker" onclick="submit()">Submit</button>'
+}
+function submit() {
+  if (question === 2) {
+    if (document.getElementById('input').value === 'April fools!') {
+      question = 3;
+      document.getElementById('question').textContent = '3. What was the 1st question on this page?';
+    } else incorrect();
+  } else if (question === 3) {
+    if (document.getElementById('input').value === 'What would you choose?') {
+      question = 4;
+      document.getElementById('question').textContent = '4. ?';
+    } else incorrect();
+  } else if (question === 4) {
+    if (document.getElementById('input').value.trim() === '') {
+      question = 5;
+      document.getElementById('question').textContent = '5. Do not answer "qwerty123" here.';
+    } else incorrect();
+  } else if (question === 5) {
+    if (document.getElementById('input').value === 'qwerty123') {
+      alert('Achievement achieved!');
+      localStorage.setItem('qwerty', 'true');
+      document.getElementById('quest').remove();
+      document.getElementById('h1').remove();
+      document.body.style.background = 'white';
+    } else {
+      question = 6;
+      alert('Good boy.')
+      document.getElementById('question').textContent = '6. What is (30+10i)(30-10i)?'
+    }
+  } else if (question === 6) {
+    if (document.getElementById('input').value === '1000') {
+      document.getElementById('input').remove();
+      document.getElementById('submit').remove();
+      document.getElementById('h1').textContent = 'Achievement achieved: Final Exam';
+      document.getElementById('question').textContent = 'Congratulations!!!'
+      localStorage.setItem('exam', 'true');
+    }
+  }
+}
+</script>
+</body>
+</html>
