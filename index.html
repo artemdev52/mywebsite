@@ -92,7 +92,7 @@ button {
 <p>Secret achievements:</p>
 <ul id='secrets'>
 </ul>
-<p id='secret_progress'>0/4 secret achievement unlocked</p>
+<p id='secret_progress'>0/5 secret achievement unlocked</p>
 <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
 </div>
 <div id='secret'>
@@ -111,7 +111,7 @@ function achieved(id, text, list) {
     document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
   } else if (list === 'normal') {
     amount ++;
-    document.getElementById("progress").textContent = amount + '/7 achievements unlocked';
+    document.getElementById("progress").textContent = amount + '/8 achievements unlocked';
   }
 }
 if (localStorage.getItem('adder') == null) {
@@ -228,6 +228,9 @@ let artist = localStorage.getItem('artist');
 if (artist == 'true') {
   achieved('artist', "Artist (change the color of background)", 'normal');
 }
+if (localStorage.getItem('forbidden') === 'true') {
+  achieved('forbidden', 'Nice Try (try to write a forbidden word)', 'normal');
+}
 if (localStorage.getItem('konami') == 'true') {
   achieved('konami', 'Wait, That Works? (enter the Konami code)', 'secrets');
 }
@@ -296,9 +299,13 @@ function convert10to2() {
 let forbidden_words = ['fuck', 'porn', 'sex', 'developer is bad', 'shit', 'trump', 'putin', 'ркн лучший', 'pornhub', 'nigger', 'dota', 'dota2']
 let question = 'false'
 function replace_h1() {
-  let new_name = document.getElementById('input').value.trim();
+  let new_name = document.getElementById('input').value;
   if (forbidden_words.includes(new_name.toLowerCase())) {
     alert("No. It's forbidden");
+    if (localStorage.getItem('forbidden') === null) {
+      achieved('forbidden', 'Nice Try (try to write a forbidden word)', 'normal');
+      alert('Achievement achieved!')
+    }
   } else {
     if (new_name == 'fish') {
       question = 'false';
@@ -374,6 +381,10 @@ function replace_title() {
   let new_name = document.getElementById('input').value;
   if (forbidden_words.includes(new_name.toLowerCase())) {
     alert("No. It's forbidden");
+    if (localStorage.getItem('forbidden') === null) {
+      achieved('forbidden', 'Nice Try (try to write a forbidden word)', 'normal');
+      alert('Achievement achieved!')
+    }
   } else {
     document.title = new_name;
   }
