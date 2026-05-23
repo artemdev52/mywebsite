@@ -46,6 +46,15 @@ button {
   padding: 10px;
   border-radius: 10px;
 }
+#secret {
+  position: absolute;
+  display: none;
+  bottom: 10px;
+  right: 10px;
+}
+#_ {
+  background-color: #0aff0a;
+}
 </style>
 </head>
 <body>
@@ -82,6 +91,9 @@ button {
 <p id='progress'>0/9 achievement unlocked</p>
 <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
 </div>
+<div id='secret'>
+  <button id='_' onclick='window.open("https://artemdev52.github.io/mywebsite/april-fools.html")'></button>
+</div>
 <script>
 let amount = 0
 if (localStorage.getItem('adder') == null) {
@@ -96,6 +108,9 @@ function randint(a, b) {
 let adder = Number(localStorage.getItem('adder'))
 const now = [new Date().getDate(), new Date().getMonth() + 1]
 const april_fools = [1, 4]
+if (now.join() === april_fools.join()) {
+  document.getElementById('secret').style.display = 'block';
+}
 let x = 0
 let angle = 0
 const rotating = document.getElementById("rotate");
