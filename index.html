@@ -55,6 +55,30 @@ button {
 #_ {
   background-color: #0aff0a;
 }
+.secrets {
+  color: #ffff0a;
+  text-shadow:
+    0 0 5px #ffffff,
+    0 0 10px #ffffff,
+    0 0 15px #ffffff,
+    0 0 20px #ffffff;
+}
+.normal {
+  color: #0aff0a;
+  text-shadow:
+    0 0 5px #ff0052,
+    0 0 10px #ff0052,
+    0 0 15px #ff0052,
+    0 0 20px #ff0052;
+}
+.rare {
+  color: #ff5500;
+  text-shadow: 
+    0 0 5px #0088ff,
+    0 0 10px #0088ff,
+    0 0 15px #0088ff,
+    0 0 20px #0088ff;
+}
 </style>
 </head>
 <body>
@@ -85,14 +109,18 @@ button {
 <button class='butin' id='rotate' onclick='rotate()'>Rotate</button>
 </div>
 <div id='topleft'>
-<p>Achievements:</p>
-<ul id='normal'>
+<p class='normal'>Achievements:</p>
+<ul class='normal' id='normal'>
 </ul>
-<p id='progress'>0/8 achievements unlocked</p>
-<p>Secret achievements:</p>
-<ul id='secrets'>
+<p class='normal' id='progress'>0/5 achievement unlocked</p>
+<p class='rare'>Rare achievements:</p>
+<ul class='rare' id='rare'>
 </ul>
-<p id='secret_progress'>0/5 secret achievements unlocked</p>
+<p class='rare' id='rare_progress'>0/4 rare achievement unlocked</p>
+<p class='secrets' id='secrets_p'>Secret achievements:</p>
+<ul class='secrets' id='secrets'>
+</ul>
+<p class='secrets' id='secret_progress'>0/4 secret achievement unlocked</p>
 <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
 </div>
 <div id='secret'>
@@ -101,6 +129,7 @@ button {
 <script>
 let amount = 0
 let secret_amount = 0
+let rare_amount = 0
 function achieved(id, text, list) {
   let li = document.createElement("li");
   li.textContent = text;
@@ -108,10 +137,13 @@ function achieved(id, text, list) {
   localStorage.setItem(id, 'true');
   if (list === 'secrets') {
     secret_amount++;
-    document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+    document.getElementById("secret_progress").textContent = secret_amount + '/4 secret achievements unlocked';
   } else if (list === 'normal') {
     amount ++;
-    document.getElementById("progress").textContent = amount + '/8 achievements unlocked';
+    document.getElementById("progress").textContent = amount + '/5 achievements unlocked';
+  } else if (list === 'rare') {
+    rare_amount++;
+    document.getElementById("rare_progress").textContent = rare_amount + '/4 rare achievements unlocked';
   }
 }
 if (localStorage.getItem('adder') == null) {
@@ -128,6 +160,15 @@ const now = [new Date().getDate(), new Date().getMonth() + 1]
 const april_fools = [1, 4]
 if (now.join() === april_fools.join()) {
   document.getElementById('secret').style.display = 'block';
+  number = randint(1, 2);
+  if (number === 1) {
+    alert('Why did a skeleton want a friend?');
+    alert('Because he felt BONELY.');
+    alert('(and yes, that was an Undertale reference)');
+  } else {
+    alert('Why are programmers always cold?');
+    alert('Because they always keep Windows open.');
+  }
 }
 let x = 0
 let angle = 0
@@ -161,7 +202,7 @@ function buttonclick() {
   if (now.toString() === april_fools.toString()) {
     clicks -= adder;
     if (localStorage.getItem('negative') === null && clicks < 0) {
-      achieved('negative', 'Negative Progress (reach negative clicks)', 'secrets');
+      achieved('negative', 'Negative Progress (reach negative clicks)', 'rare');
       alert("Achievement unlocked!");
     }
   } else {
@@ -210,19 +251,19 @@ if (got10000 == 'true') {
 }
 let sacrifice = localStorage.getItem('sacrifice');
 if (sacrifice == 'true') {
-  achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'normal');
+  achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'rare');
 }
 let negative = localStorage.getItem('negative');
 if (negative == 'true') {
-  achieved('negative', 'Negative Progress (reach negative clicks)', 'secrets');
+  achieved('negative', 'Negative Progress (reach negative clicks)', 'rare');
 }
 let remembered_pi = localStorage.getItem('pi_knowledge');
 if (remembered_pi == 'true') {
-  achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'normal');
+  achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'rare');
 }
 let math = localStorage.getItem('math');
 if (math == 'true') {
-  achieved('math', "Mathematician (complete the Math Quest)", 'normal');
+  achieved('math', "Mathematician (complete the Math Quest)", 'rare');
 }
 let artist = localStorage.getItem('artist');
 if (artist == 'true') {
@@ -260,7 +301,7 @@ function reset_highscore() {
     if (localStorage.getItem('high_clicks') >= 2000) {
       if (localStorage.getItem('sacrifice') === null) {
         alert("Achievement unlocked!");
-        achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'normal');
+        achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'rare');
       }
     }
     localStorage.setItem('high_clicks', 0);
@@ -338,7 +379,7 @@ function replace_h1() {
     } else if ((new_name == '3,14159265358979323846264338327950288419716939937510') || (new_name == '3.14159265358979323846264338327950288419716939937510')) {
       if (localStorage.getItem('pi_knowledge') === null) {
         alert("Achievement unlocked!");
-        achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'normal');
+        achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'rare');
       }
       question = 'false';
     } else if (new_name == 'math quest') {
@@ -357,7 +398,7 @@ function replace_h1() {
             alert('Math quest completed!');
             if (localStorage.getItem('math') === null) {
               alert("Achievement unlocked!");
-              achieved('math', "Mathematician (complete the Math Quest)", 'normal');
+              achieved('math', "Mathematician (complete the Math Quest)", 'rare');
             } else {
               alert('Achievement is already achieved.');
             }
