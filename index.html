@@ -38,7 +38,8 @@ input {
 button {
   flex-shrink: 0;
 }
-#topleft {
+#achievements {
+  display: none;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -66,10 +67,10 @@ button {
 .normal {
   color: #0aff0a;
   text-shadow:
-    0 0 5px #ff0052,
-    0 0 10px #ff0052,
-    0 0 15px #ff0052,
-    0 0 20px #ff0052;
+    0 0 5px #ff00ff,
+    0 0 10px #ff00ff,
+    0 0 15px #ff00ff,
+    0 0 20px #ff00ff;
 }
 .rare {
   color: #ff5500;
@@ -86,6 +87,25 @@ button {
 }
 #link {
   color: #888888;
+}
+#show {
+  top: 10px;
+  left: 10px;
+  position: absolute;
+}
+.bugged {
+  color: #999999;
+  text-shadow: 
+    2px 0 0px blue,
+    -2px 0 0px red,
+    0 0 5px white,
+    0 0 10px white,
+    0 0 15px white,
+    0 0 20px white, 
+    0 0 25px white;
+}
+#thetrueone {
+  display: none;
 }
 </style>
 </head>
@@ -116,7 +136,7 @@ button {
 <p></p>
 <button class='butin' id='rotate' onclick='rotate()'>Rotate</button>
 </div>
-<div id='topleft'>
+<div id='achievements'>
 <p class='normal'>Achievements:</p>
 <ul class='normal' id='normal'>
 </ul>
@@ -124,17 +144,26 @@ button {
 <p class='rare'>Rare achievements:</p>
 <ul class='rare' id='rare'>
 </ul>
-<p class='rare' id='rare_progress'>0/4 rare achievement unlocked</p>
+<p class='rare' id='rare_progress'>0/5 rare achievement unlocked</p>
 <p class='secrets' id='secrets_p'>Secret achievements:</p>
 <ul class='secrets' id='secrets'>
 </ul>
-<p class='secrets' id='secret_progress'>0/4 secret achievement unlocked</p>
+<p class='secrets' id='secret_progress'>0/5 secret achievement unlocked</p>
+<div id='thetrueone'>
+  <p class='bugged'>THE TRUE ONE ACHIEVEMENT:</p>
+  <ul class='bugged'>
+    <li>NOTHING LEFT TO DO (ACHIEVE ALL ACHIEVEMENTS)
+  </ul>
+  <p class='bugged'>1/1</p>
+</div>
 <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
+<button class='butin' onclick='hide_achievements()'>Hide achievements</button>
 </div>
 <div id='secret'>
   <button id='_' onclick='window.open("https://artemdev52.github.io/mywebsite/april-fools.html")'></button>
 </div>
 <div id='bottomleft'><a id='link' href='https://github.com/artemdev52'>My Github</a></div>
+<div id='show'><button class='butin' onclick='show_achievements()'>Show achievements</button></div>
 <script>
 let amount = 0
 let secret_amount = 0
@@ -144,15 +173,25 @@ function achieved(id, text, list) {
   li.textContent = text;
   document.getElementById(list).appendChild(li);
   localStorage.setItem(id, 'true');
-  if (list === 'secrets') {
-    secret_amount++;
-    document.getElementById("secret_progress").textContent = secret_amount + '/4 secret achievements unlocked';
-  } else if (list === 'normal') {
+  if (list === 'normal') {
     amount ++;
     document.getElementById("progress").textContent = amount + '/5 achievements unlocked';
+    if (amount === 5 && localStorage.getItem('all_normals') === null) {
+      achieved('all_normals',  'Why? (achieve all normal achievements)', 'rare')
+    }
   } else if (list === 'rare') {
     rare_amount++;
-    document.getElementById("rare_progress").textContent = rare_amount + '/4 rare achievements unlocked';
+    document.getElementById("rare_progress").textContent = rare_amount + '/5 rare achievements unlocked';
+    if (rare_amount === 5 && localStorage.getItem('all_rares') === null) {
+      achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets');
+    }
+  } else if (list === 'secrets') {
+    secret_amount++;
+    document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
+    if (secret_amount === 5 && localStorage.getItem('all_secrets') === null) {
+      document.getElementById('thetrueone').style.display = 'block';
+      localStorage.setItem('completed', 'true')
+    }
   }
 }
 if (localStorage.getItem('adder') == null) {
@@ -295,6 +334,14 @@ if (exam == 'true') {
 let qwerty = localStorage.getItem('qwerty');
 if (qwerty == 'true') {
   achieved('qwerty', 'Reverse Psychology (answer "qwerty123" on 5th question)', 'secrets')
+}
+let all_normals = localStorage.getItem('all_normals');
+if (all_normals == 'true') {
+  achieved('all_normals', 'Why? (achieve all normal achievements)', 'rare')
+}
+let all_rares = localStorage.getItem('all_rares');
+if (all_rares == 'true') {
+  achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets')
 }
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 document.getElementById('low').textContent = 'Your worst score: ' + low_score
@@ -500,6 +547,14 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
+function show_achievements() {
+  document.getElementById('achievements').style.display = 'block';
+  document.getElementById('show').style.display = 'none';
+}
+function hide_achievements() {
+  document.getElementById('achievements').style.display = 'none';
+  document.getElementById('show').style.display = 'block';
+}
 </script>
 </body>
 </html>
