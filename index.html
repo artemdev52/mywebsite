@@ -168,6 +168,64 @@ button {
 let amount = 0
 let secret_amount = 0
 let rare_amount = 0
+let got1000 = localStorage.getItem('got1000');
+if (got1000 == 'true') {
+  achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
+}
+let got2000 = localStorage.getItem('got2000');
+if (got2000 == 'true') {
+  achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
+}
+let got10000 = localStorage.getItem('got10000');
+if (got10000 == 'true') {
+  achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
+}
+let sacrifice = localStorage.getItem('sacrifice');
+if (sacrifice == 'true') {
+  achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'rare');
+}
+let negative = localStorage.getItem('negative');
+if (negative == 'true') {
+  achieved('negative', 'Negative Progress (reach negative clicks)', 'rare');
+}
+let remembered_pi = localStorage.getItem('pi_knowledge');
+if (remembered_pi == 'true') {
+  achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'rare');
+}
+let math = localStorage.getItem('math');
+if (math == 'true') {
+  achieved('math', "Mathematician (complete the Math Quest)", 'rare');
+}
+let artist = localStorage.getItem('artist');
+if (artist == 'true') {
+  achieved('artist', "Artist (change the color of background)", 'normal');
+}
+if (localStorage.getItem('forbidden') === 'true') {
+  achieved('forbidden', 'Nice Try (try to write a forbidden word)', 'normal');
+}
+if (localStorage.getItem('konami') == 'true') {
+  achieved('konami', 'Wait, That Works? (enter the Konami code)', 'secrets');
+}
+let wrong = localStorage.getItem('wrong');
+if (wrong == 'true') {
+  achieved('wrong', 'Good At Being Wrong (press "The wrong one" button)', 'secrets');
+}
+let exam = localStorage.getItem('exam');
+if (exam == 'true') {
+  achieved('exam', 'Final Exam (complete the April Fools quest)', 'secrets');
+}
+let qwerty = localStorage.getItem('qwerty');
+if (qwerty == 'true') {
+  achieved('qwerty', 'Reverse Psychology (answer "qwerty123" on 5th question)', 'secrets')
+}
+let all_normals = localStorage.getItem('all_normals');
+if (all_normals == 'true') {
+  achieved('all_normals', 'Why? (achieve all normal achievements)', 'rare')
+}
+let all_rares = localStorage.getItem('all_rares');
+if (all_rares == 'true') {
+  achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets')
+}
 function achieved(id, text, list) {
   let li = document.createElement("li");
   li.textContent = text;
@@ -284,64 +342,6 @@ function buttonclick() {
     low_score = clicks;
     document.getElementById('low').textContent = 'Your worst score: ' + clicks;
   }
-}
-let got1000 = localStorage.getItem('got1000');
-if (got1000 == 'true') {
-  achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
-}
-let got2000 = localStorage.getItem('got2000');
-if (got2000 == 'true') {
-  achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
-}
-let got10000 = localStorage.getItem('got10000');
-if (got10000 == 'true') {
-  achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
-}
-let sacrifice = localStorage.getItem('sacrifice');
-if (sacrifice == 'true') {
-  achieved('sacrifice', 'The Sacrifice (reset high score when it is 2000+ clicks)', 'rare');
-}
-let negative = localStorage.getItem('negative');
-if (negative == 'true') {
-  achieved('negative', 'Negative Progress (reach negative clicks)', 'rare');
-}
-let remembered_pi = localStorage.getItem('pi_knowledge');
-if (remembered_pi == 'true') {
-  achieved('pi_knowledge', "Euler Is Proud Of You (type 50 digits of π correctly)", 'rare');
-}
-let math = localStorage.getItem('math');
-if (math == 'true') {
-  achieved('math', "Mathematician (complete the Math Quest)", 'rare');
-}
-let artist = localStorage.getItem('artist');
-if (artist == 'true') {
-  achieved('artist', "Artist (change the color of background)", 'normal');
-}
-if (localStorage.getItem('forbidden') === 'true') {
-  achieved('forbidden', 'Nice Try (try to write a forbidden word)', 'normal');
-}
-if (localStorage.getItem('konami') == 'true') {
-  achieved('konami', 'Wait, That Works? (enter the Konami code)', 'secrets');
-}
-let wrong = localStorage.getItem('wrong');
-if (wrong == 'true') {
-  achieved('wrong', 'Good At Being Wrong (press "The wrong one" button)', 'secrets');
-}
-let exam = localStorage.getItem('exam');
-if (exam == 'true') {
-  achieved('exam', 'Final Exam (complete the April Fools quest)', 'secrets');
-}
-let qwerty = localStorage.getItem('qwerty');
-if (qwerty == 'true') {
-  achieved('qwerty', 'Reverse Psychology (answer "qwerty123" on 5th question)', 'secrets')
-}
-let all_normals = localStorage.getItem('all_normals');
-if (all_normals == 'true') {
-  achieved('all_normals', 'Why? (achieve all normal achievements)', 'rare')
-}
-let all_rares = localStorage.getItem('all_rares');
-if (all_rares == 'true') {
-  achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets')
 }
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 document.getElementById('low').textContent = 'Your worst score: ' + low_score
