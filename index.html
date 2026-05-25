@@ -304,6 +304,7 @@ let clicks = 0;
 let high_score = Number(localStorage.getItem('high_clicks'));
 let low_score = Number(localStorage.getItem('low_clicks'))
 function buttonclick() {
+  document.activeElement.blur();
   if (now.toString() === april_fools.toString()) {
     clicks -= adder;
     if (localStorage.getItem('negative') === null && clicks < 0) {
