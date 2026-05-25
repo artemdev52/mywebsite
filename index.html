@@ -317,17 +317,19 @@ function buttonclick() {
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
   box.style.width = (208 + Math.floor(Math.log10(Math.abs(clicks)))*8 + 8) + "px";
-  if (clicks == 1000) {
+  if (clicks >= 1000) {
     if (localStorage.getItem('got1000') === null){
       alert("Achievement unlocked!");
       achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
     }
-  } else if (clicks == 2000) {
+  }
+  if (clicks >= 2000) {
     if (localStorage.getItem('got2000') === null){
       alert("Achievement unlocked!");
       achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
     }
-  } else if (clicks == 10000) {
+  }
+  if (clicks >= 10000) {
     if (localStorage.getItem('got10000') === null){
       alert("Achievement unlocked!");
       achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
