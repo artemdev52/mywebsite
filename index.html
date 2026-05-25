@@ -294,6 +294,7 @@ function rotate() {
       let box1 = document.getElementById('outerbox');
       box1.style.transform = 'rotate('+angle+'deg)';
       if (angle >= 360) {
+        angle = 0;
         clearInterval(interval);
       }
     }, 7)
