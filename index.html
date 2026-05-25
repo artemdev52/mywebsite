@@ -292,9 +292,7 @@ function rotate() {
     let interval = setInterval(function() {
       angle += 1;
       let box1 = document.getElementById('outerbox');
-      let box2 = document.getElementById('topleft');
       box1.style.transform = 'rotate('+angle+'deg)';
-      box2.style.transform = 'rotate('+(-angle)+'deg)';
       if (angle >= 360) {
         clearInterval(interval);
       }
