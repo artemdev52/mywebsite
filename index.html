@@ -49,12 +49,11 @@ button {
 }
 #secret {
   position: absolute;
-  display: none;
   bottom: 10px;
   right: 10px;
 }
 #_ {
-  background-color: #0aff0a;
+  background-color: #000000;
 }
 .secrets {
   color: #ffff0a;
@@ -96,8 +95,8 @@ button {
 .bugged {
   color: #999999;
   text-shadow: 
-    2px 0 0px blue,
-    -2px 0 0px red,
+    3px 0 0px blue,
+    -3px 0 0px red,
     0 0 5px white,
     0 0 10px white,
     0 0 15px white,
@@ -160,7 +159,7 @@ button {
 <button class='butin' onclick='hide_achievements()'>Hide achievements</button>
 </div>
 <div id='secret'>
-  <button id='_' onclick='window.open("https://artemdev52.github.io/mywebsite/april-fools.html")'></button>
+  <button id='_' onclick='window.open("https://artemdev52.github.io/mywebsite/secret.html")'></button>
 </div>
 <div id='bottomleft'><a id='link' href='https://github.com/artemdev52'>My Github</a></div>
 <div id='show'><button class='butin' onclick='show_achievements()'>Show achievements</button></div>
@@ -265,15 +264,20 @@ let adder = Number(localStorage.getItem('adder'))
 const now = [new Date().getDate(), new Date().getMonth() + 1]
 const april_fools = [1, 4]
 if (now.join() === april_fools.join()) {
-  document.getElementById('secret').style.display = 'block';
-  number = randint(1, 2);
+  number = randint(1, 4);
   if (number === 1) {
-    alert('Why did a skeleton want a friend?');
-    alert('Because he felt BONELY.');
-    alert('(and yes, that was an Undertale reference)');
-  } else {
+    alert('* Why did the skeleton want a friend?');
+    alert('* Because she felt BONELY.');
+    alert('* (and yes, that was an Undertale reference)');
+  } else if (number === 2) {
     alert('Why are programmers always cold?');
     alert('Because they always keep Windows open.');
+  } else if (number === 3) {
+    alert('Why do programmers prefer dark mode?');
+    alert('Because light attracts bugs.');
+  } else if (number === 4) {
+    alert('Why do programmers hate nature?')
+    alert("Because there's too many bugs")
   }
 }
 let x = 0
@@ -292,9 +296,10 @@ function rotate() {
     let interval = setInterval(function() {
       angle += 1;
       let box1 = document.getElementById('outerbox');
+      let box2 = document.getElementById('topleft');
       box1.style.transform = 'rotate('+angle+'deg)';
+      box2.style.transform = 'rotate('+(-angle)+'deg)';
       if (angle >= 360) {
-        angle = 0;
         clearInterval(interval);
       }
     }, 7)
@@ -304,7 +309,6 @@ let clicks = 0;
 let high_score = Number(localStorage.getItem('high_clicks'));
 let low_score = Number(localStorage.getItem('low_clicks'))
 function buttonclick() {
-  document.activeElement.blur();
   if (now.toString() === april_fools.toString()) {
     clicks -= adder;
     if (localStorage.getItem('negative') === null && clicks < 0) {
@@ -317,19 +321,17 @@ function buttonclick() {
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
   box.style.width = (208 + Math.floor(Math.log10(Math.abs(clicks)))*8 + 8) + "px";
-  if (clicks >= 1000) {
+  if (clicks == 1000) {
     if (localStorage.getItem('got1000') === null){
       alert("Achievement unlocked!");
       achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
     }
-  }
-  if (clicks >= 2000) {
+  } else if (clicks == 2000) {
     if (localStorage.getItem('got2000') === null){
       alert("Achievement unlocked!");
       achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
     }
-  }
-  if (clicks >= 10000) {
+  } else if (clicks == 10000) {
     if (localStorage.getItem('got10000') === null){
       alert("Achievement unlocked!");
       achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
