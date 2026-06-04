@@ -160,7 +160,7 @@ button {
   <p class='normal'>Achievements:</p>
   <ul class='normal' id='normal'>
   </ul>
-  <p class='normal' id='progress'>0/5 achievement unlocked</p>
+  <p class='normal' id='progress'>0/6 achievement unlocked</p>
   <p class='rare'>Rare achievements:</p>
   <ul class='rare' id='rare'>
   </ul>
@@ -201,12 +201,18 @@ button {
   <p></p>
   <button class='butin' onclick='change_background()'>Change the background</button>
   <button class='butin' onclick='change_text()'>Change the text</button>
+  <p></p>
+  <button class='butin' onclick="visitOldTimes()">View old version</button>
 </div>
 <script>
 console.log("Why are you here? You’re not cheating, right? ")
 let amount = 0
 let secret_amount = 0
 let rare_amount = 0
+let nostalgic = localStorage.getItem('nostalgic')
+if (nostalgic === 'true') {
+  achieved('nostalgic', 'Nostalgia (visit the first version of the website)', 'normal');
+}
 let got1000 = localStorage.getItem('got1000');
 if (got1000 == 'true') {
   achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
@@ -257,12 +263,10 @@ let qwerty = localStorage.getItem('qwerty');
 if (qwerty == 'true') {
   achieved('qwerty', 'Reverse Psychology (answer "qwerty123" on 5th question)', 'secrets')
 }
-let all_normals = localStorage.getItem('all_normals');
-if (all_normals == 'true') {
+if (amount === 6) {
   achieved('all_normals', 'Why? (achieve all normal achievements)', 'rare')
 }
-let all_rares = localStorage.getItem('all_rares');
-if (all_rares == 'true') {
+if (rare_amount === 5) {
   achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets')
 }
 function achieved(id, text, list) {
@@ -272,7 +276,7 @@ function achieved(id, text, list) {
   localStorage.setItem(id, 'true');
   if (list === 'normal') {
     amount ++;
-    document.getElementById("progress").textContent = amount + '/5 achievements unlocked';
+    document.getElementById("progress").textContent = amount + '/6 achievements unlocked';
     if (amount === 5 && localStorage.getItem('all_normals') === null) {
       achieved('all_normals',  'Why? (achieve all normal achievements)', 'rare')
     }
@@ -557,7 +561,7 @@ function checkEgg() {
     } else if(new_name == '67') {
       question = 'false';
       alert('89');
-    } else if(new_name == 'Type something...') {
+    } else if(new_name == 'Enter a secret...') {
       alert('Are you THAT bored?!');
       document.getElementById('h1').textContent = new_name;
       question = 'true';
@@ -568,7 +572,7 @@ function checkEgg() {
       question = 'false';
       alert('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1');
       document.getElementById('h1').textContent = new_name;
-    } else if (question == 'true' && (new_name == 'yes i am' || new_name === 'yes')) {
+    } else if (question == 'true' && /\byes\b/.test(new_name)) {
       question = 'false';
       alert('Like, OK, i guess?');
     } else if (new_name == 'alert("Hello, World!")') {
@@ -621,11 +625,21 @@ function checkEgg() {
         'Try harder!', 
         'Nope.', 
         'Not that', 
-        'Har tryder! (not a typo)'
+        'Har tryder! (not a typo)',
+        'The secret remains secret',
+        'Keep trying',
+        'Congratulations! You found absolutely nothing',
+        'Nothing achieved'
       ]
-      alert(messages[randint(0, 3)]);
+      alert(messages[randint(0, messages.length - 1)]);
       question = 'false';
     }
+  }
+}
+function visitOldTimes() {
+  window.open('https://artemdev52.github.io/mywebsite/old.html');
+  if (localStorage.getItem('nostalgic') === null) {
+    achieved('nostalgic', 'Nostalgia (visit the first version of the website)', 'normal');
   }
 }
 </script>
