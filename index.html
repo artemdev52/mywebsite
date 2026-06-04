@@ -277,7 +277,7 @@ function achieved(id, text, list) {
   if (list === 'normal') {
     amount ++;
     document.getElementById("progress").textContent = amount + '/6 achievements unlocked';
-    if (amount === 5 && localStorage.getItem('all_normals') === null) {
+    if (amount === 6 && localStorage.getItem('all_normals') === null) {
       achieved('all_normals',  'Why? (achieve all normal achievements)', 'rare')
     }
   } else if (list === 'rare') {
