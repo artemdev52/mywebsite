@@ -19,6 +19,13 @@ body{
   color: #0aff0a;
   border-radius: 8px;
 }
+#resetAchievements {
+  padding: 8px;
+  border: 2px solid #ff0000;
+  background-color: black;
+  color: #ff0000;
+  border-radius: 8px;
+}
 input {
   margin: 5px;
 }
@@ -153,6 +160,7 @@ button {
   <input id=num class='butin' type="number" placeholder="Type a number">
   <button class='butin' onclick="convert10to2()">Decimal to binary</button>
   <p id=p></p>
+  <button class='butin' id='randombutton' onclick='randomEvent()'>Button of Random (cost: 50 clicks)</button>
   <p></p>
   <button class='butin' id='rotate' onclick='rotate()'>Rotate</button>
 </div>
@@ -164,7 +172,7 @@ button {
   <p class='rare'>Rare achievements:</p>
   <ul class='rare' id='rare'>
   </ul>
-  <p class='rare' id='rare_progress'>0/5 rare achievement unlocked</p>
+  <p class='rare' id='rare_progress'>0/6 rare achievement unlocked</p>
   <p class='secrets' id='secrets_p'>Secret achievements:</p>
   <ul class='secrets' id='secrets'>
   </ul>
@@ -176,7 +184,7 @@ button {
     </ul>
     <p class='bugged'>1/1</p>
   </div>
-  <button class='butin' onclick='clear_achievements()'>Reset the achievements</button>
+  <button id='resetAchievements' onclick='clear_achievements()'>Reset achievements</button>
   <button class='butin' onclick='hide_achievements()'>Hide achievements</button>
 </div>
 <div id='secret'>
@@ -206,12 +214,39 @@ button {
 </div>
 <script>
 console.log("Why are you here? You’re not cheating, right? ")
+const achievementList = [
+  'got1000',
+  'got2000',
+  'got10000',
+  'sacrifice',
+  'math',
+  'debt',
+  'pi_knowledge',
+  'nostalgic',
+  'konami',
+  'artist',
+  'negative',
+  'forbidden',
+  'wrong',
+  'exam',
+  'qwerty',
+  'all_normals',
+  'all_rares',
+  'completed'
+]
+const totalN = 6
+const totalR = 6
+const totalS = 5
 let amount = 0
 let secret_amount = 0
 let rare_amount = 0
 let nostalgic = localStorage.getItem('nostalgic')
 if (nostalgic === 'true') {
   achieved('nostalgic', 'Nostalgia (visit the first version of the website)', 'normal');
+}
+let debt = localStorage.getItem('debt')
+if (debt === 'true') {
+  achieved('debt', 'Bankrupt (go in debt because of Random Button)', 'rare');
 }
 let got1000 = localStorage.getItem('got1000');
 if (got1000 == 'true') {
@@ -263,10 +298,10 @@ let qwerty = localStorage.getItem('qwerty');
 if (qwerty == 'true') {
   achieved('qwerty', 'Reverse Psychology (answer "qwerty123" on 5th question)', 'secrets')
 }
-if (amount === 6) {
+if (amount === totalN) {
   achieved('all_normals', 'Why? (achieve all normal achievements)', 'rare')
 }
-if (rare_amount === 5) {
+if (rare_amount === totalR) {
   achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets')
 }
 function achieved(id, text, list) {
@@ -276,20 +311,20 @@ function achieved(id, text, list) {
   localStorage.setItem(id, 'true');
   if (list === 'normal') {
     amount ++;
-    document.getElementById("progress").textContent = amount + '/6 achievements unlocked';
-    if (amount === 6 && localStorage.getItem('all_normals') === null) {
+    document.getElementById("progress").textContent = amount + '/' + totalN + ' achievements unlocked';
+    if (amount === totalN && localStorage.getItem('all_normals') === null) {
       achieved('all_normals',  'Why? (achieve all normal achievements)', 'rare')
     }
   } else if (list === 'rare') {
     rare_amount++;
-    document.getElementById("rare_progress").textContent = rare_amount + '/5 rare achievements unlocked';
-    if (rare_amount === 5 && localStorage.getItem('all_rares') === null) {
+    document.getElementById("rare_progress").textContent = rare_amount + '/' + totalR + ' rare achievements unlocked';
+    if (rare_amount === totalR && localStorage.getItem('all_rares') === null) {
       achieved('all_rares', 'WHY?! (achieve all rare achievements)', 'secrets');
     }
   } else if (list === 'secrets') {
     secret_amount++;
-    document.getElementById("secret_progress").textContent = secret_amount + '/5 secret achievements unlocked';
-    if (secret_amount === 5 && localStorage.getItem('all_secrets') === null) {
+    document.getElementById("secret_progress").textContent = secret_amount + '/' + totalS + ' secret achievements unlocked';
+    if (secret_amount === totalS && localStorage.getItem('all_secrets') === null) {
       document.getElementById('thetrueone').style.display = 'block';
       localStorage.setItem('completed', 'true')
     }
@@ -365,22 +400,22 @@ function buttonclick() {
   document.getElementById("btn1").textContent = "Clicks: " + clicks; 
   let box = document.getElementById('box');
   box.style.width = (208 + Math.floor(Math.log10(Math.abs(clicks)))*8 + 8) + "px";
-  if (clicks == 1000) {
-    if (localStorage.getItem('got1000') === null){
-      alert("Achievement unlocked!");
-      achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
-    }
-  } else if (clicks == 2000) {
-    if (localStorage.getItem('got2000') === null){
-      alert("Achievement unlocked!");
-      achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
-    }
-  } else if (clicks == 10000) {
+  if (clicks >= 10000) {
     if (localStorage.getItem('got10000') === null){
       alert("Achievement unlocked!");
       achieved('got10000', 'What Is Grass? (reach 10000 clicks)', 'normal');
     }
-  } 
+  } else if (clicks >= 2000) {
+    if (localStorage.getItem('got2000') === null){
+      alert("Achievement unlocked!");
+      achieved('got2000', 'Finger Destroyer (reach 2000 clicks)', 'normal');
+    }
+  } else if (clicks >= 1000) {
+    if (localStorage.getItem('got1000') === null){
+      alert("Achievement unlocked!");
+      achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
+    }
+  }
 }
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 document.getElementById('low').textContent = 'Your worst score: ' + low_score
@@ -491,19 +526,10 @@ function change_text() {
   }
 }
 function clear_achievements() {
-  high_score = localStorage.getItem('high_clicks');
-  low_score = localStorage.getItem('low_clicks');
-  adder = Number(localStorage.getItem('adder'))
-  localStorage.clear();
-  localStorage.setItem('high_clicks', high_score);
-  localStorage.setItem('low_clicks', low_score);
-  localStorage.setItem('adder', adder);
-  amount = 0;
-  secret_amount = 0;
-  document.getElementById('progress').textContent = '0/7 achievements unlocked';
-  document.getElementById('secret_progress').textContent = '0/5 secret achievements unlocked';
-  document.getElementById("achievements").innerHTML = "";
-  document.getElementById("secrets").innerHTML = "";
+  for (let id of achievementList) {
+    localStorage.removeItem(id);
+  }
+  location.reload();
 }
 const secret = [
   'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
@@ -620,6 +646,9 @@ function checkEgg() {
     } else if (new_name === '') {
       alert('Are you serious? Just empty field?');
       question = 'true';
+    } else  if (new_name === 'how to open a door') {
+      question = 'false';
+      window.open('https://www.youtube.com/watch?v=Wof0xPUmW38');
     } else {
       let messages = [
         'Try harder!', 
@@ -640,6 +669,54 @@ function visitOldTimes() {
   window.open('https://artemdev52.github.io/mywebsite/old.html');
   if (localStorage.getItem('nostalgic') === null) {
     achieved('nostalgic', 'Nostalgia (visit the first version of the website)', 'normal');
+  }
+}
+const loads = ['L', 'Lo', 'Loa', 'Load', 'Loadi', 'Loadin', 'Loading', 'Loading.', 'Loading..', 'Loading...']
+const load = document.getElementById('randombutton');
+let digits = 0
+function randomEvent() {
+  if (clicks < 50) {
+    alert('Not enough clicks');
+  } else {
+    clicks -= 50;
+    document.getElementById('btn1').textContent = 'Clicks: ' + clicks;
+    let interval = setInterval(function() {
+      digits += 1;
+      load.textContent = loads[digits + 1];
+      if (digits >= 10) {
+        load.textContent = 'Button of Random (cost: 50 clicks)';
+        digits = 0;
+        let number = randint(1, 50);
+        if (number < 8) {
+          alert('+100 clicks!');
+          clicks += 100;
+        } else if (number < 15) {
+          alert('+50 clicks');
+          clicks += 50;
+        } else if (number < 22) {
+          alert('+1 click');
+          clicks += 1;
+        } else if (number < 29) {
+          alert('-50 more clicks');
+          clicks -= 50;
+        } else if (number < 36) {
+          alert('Nothing happened');
+        } else if (number < 43) {
+          window.open('https://www.youtube.com/shorts/_6HzLIJPH2A');
+        } else if (number < 50) {
+          alert('Thank you for your clicks!');
+        } else if (number === 50) {
+          alert('+500 clicks!');
+          clicks += 500;
+        }
+        if (clicks < 0 && localStorage.getItem('debt') === null) {
+          alert('Achievement achieved!');
+          achieved('debt', 'Bankrupt (go in debt because of Random Button)', 'rare')
+        }
+        document.getElementById('btn1').textContent = 'Clicks: ' + clicks;
+        clearInterval(interval);
+      }
+    }, 100)
   }
 }
 </script>
