@@ -29,6 +29,13 @@ body{
 input {
   margin: 5px;
 }
+#congrats {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} 
 #box {
   border: 2px solid red;
   padding: 5px;
@@ -162,6 +169,8 @@ button {
   <p id=p></p>
   <button class='butin' id='randombutton' onclick='randomEvent()'>Button of Random (cost: 50 clicks)</button>
   <p></p>
+  <button id='congratsButton' onclick='birthdayDefine()' class='butin'>If now is your birthday, press me</button>
+  <p></p>
   <button class='butin' id='rotate' onclick='rotate()'>Rotate</button>
 </div>
 <div id='achievements'>
@@ -211,6 +220,9 @@ button {
   <button class='butin' onclick='change_text()'>Change the text</button>
   <p></p>
   <button class='butin' onclick="visitOldTimes()">View old version</button>
+</div>
+<div id='congrats' style='display: none;'>
+  <p>Happy Birthday! I wish you success, happiness, health and great people around you. Good luck!</p>
 </div>
 <script>
 console.log("Why are you here? You’re not cheating, right? ")
@@ -570,6 +582,7 @@ function show_settings() {
 document.getElementById("overlay").onclick = function () {
   this.style.display = "none";
   document.getElementById("settings").style.display = "none";
+  document.getElementById('congrats').style.display = 'none';
 }
 function checkEgg() {
   let new_name = document.getElementById('easterEggs').value.toLowerCase();
@@ -718,6 +731,18 @@ function randomEvent() {
       }
     }, 100)
   }
+}
+function birthdayDefine() {
+  document.getElementById('congrats').style.display = 'block';
+  const birthdayDate = [new Date().getDate(), new Date().getMonth() + 1] ;
+  localStorage.setItem('birthday', birthdayDate);
+  document.getElementById('congratsButton').remove();
+}
+if (localStorage.getItem('birthday') != null) {
+  document.getElementById('congratsButton').remove();
+  if (now.join() === localStorage.getItem('birthday')) {
+    document.getElementById('congrats').style.display = 'block';
+  } 
 }
 </script>
 </body>
