@@ -35,6 +35,10 @@ input {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border: 2px solid #0aff0a;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: black;
 } 
 #box {
   border: 2px solid red;
@@ -734,6 +738,7 @@ function randomEvent() {
 }
 function birthdayDefine() {
   document.getElementById('congrats').style.display = 'block';
+  document.getElementById('overlay').style.display = 'block';
   const birthdayDate = [new Date().getDate(), new Date().getMonth() + 1] ;
   localStorage.setItem('birthday', birthdayDate);
   document.getElementById('congratsButton').remove();
@@ -742,6 +747,7 @@ if (localStorage.getItem('birthday') != null) {
   document.getElementById('congratsButton').remove();
   if (now.join() === localStorage.getItem('birthday')) {
     document.getElementById('congrats').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
   } 
 }
 </script>
