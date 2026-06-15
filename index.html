@@ -26,6 +26,10 @@ body{
   color: #ff0000;
   border-radius: 8px;
 }
+.base64 {
+  font-size: 5px;
+  color: black;
+}
 input {
   margin: 5px;
 }
@@ -167,8 +171,8 @@ button {
     <p id='low'>Your worst score: 0</p>
     <button class='butin' onclick='reset_highscore()'>Reset best score</button>
   </div>
-  <p></p>
-  <input id=num class='butin' type="number" placeholder="Type a number">
+  <p class='base64'>SSBzdWNjZWVkZWQgaW4gd2FzdGluZyB5b3VyIHRpbWUh</p>
+  <input id=num class='butin' type="number" placeholder="Enter a number">
   <button class='butin' onclick="convert10to2()">Decimal to binary</button>
   <p id=p></p>
   <button class='butin' id='randombutton' onclick='randomEvent()'>Button of Random (cost: 50 clicks)</button>
@@ -229,6 +233,7 @@ button {
   <p>Happy Birthday! I wish you success, happiness, health and great people around you. Good luck!</p>
 </div>
 <script>
+console.log(a)
 console.log("Why are you here? You’re not cheating, right? ")
 const achievementList = [
   'got1000',
@@ -526,6 +531,10 @@ function change_background() {
   let butins = document.querySelectorAll(".butin"); 
   for (let something of butins) {
     something.style.background = color;
+  }
+  let base64 = document.querySelectorAll('.base64');
+  for (let code of base64) {
+    code.style.color = color;
   }
   let artist = localStorage.getItem('artist');
   if (artist === null) {
