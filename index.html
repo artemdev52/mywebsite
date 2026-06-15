@@ -592,11 +592,11 @@ function show_settings() {
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('settings').style.display = 'block';
 }
-document.getElementById("overlay").onclick = function () {
+document.getElementById("overlay").addEventListener('click', function () {
   this.style.display = "none";
-  document.getElementById("settings").style.display = "none";
+document.getElementById("settings").style.display = "none";
   document.getElementById('congrats').style.display = 'none';
-}
+})
 function checkEgg() {
   let new_name = document.getElementById('easterEggs').value.toLowerCase();
   if (forbidden_words.includes(new_name)) {
