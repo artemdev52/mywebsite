@@ -129,8 +129,8 @@ button {
   display: none;
 }
 #overlay {
+  all: unset;
   display: none;
-  cursor: pointer;
   position: fixed;
   top: 0;
   left: 0;
@@ -215,7 +215,7 @@ button {
   <button class='butin' onclick='show_achievements()'>Show achievements</button>
 </div>
 <button onclick='show_settings()' id='show_settings'>⚙️ Settings</button>
-<div id='overlay'></div>
+<button onclick='closeSettings' id='overlay'></button>
 <div id='settings'>
   <h2>Settings</h2>
   <input class='butin' id='input' placeholder='Type something...'></input>
@@ -593,11 +593,11 @@ function show_settings() {
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('settings').style.display = 'block';
 }
-document.getElementById("overlay").addEventListener('click', function () {
-  overlay.style.display = "none";
+function closeSettings() {
+  document.getElementById('overlay').style.display = "none";
 document.getElementById("settings").style.display = "none";
   document.getElementById('congrats').style.display = 'none';
-})
+}
 function checkEgg() {
   let new_name = document.getElementById('easterEggs').value.toLowerCase();
   if (forbidden_words.includes(new_name)) {
