@@ -365,6 +365,7 @@ const now = [new Date().getDate(), new Date().getMonth() + 1]
 const april_fools = [1, 4]
 if (now.join() === april_fools.join()) {
   document.body.style.filter = 'invert(1)';
+  document.title = '🫪';
   document.getElementById('h1').textContent = 'Everything is completely normal (except for your back, because it is white)';
   number = randint(1, 4);
   if (number === 1) {
