@@ -186,15 +186,15 @@ button {
   <p class='normal'>Achievements:</p>
   <ul class='normal' id='normal'>
   </ul>
-  <p class='normal' id='progress'>0/6 achievement unlocked</p>
+  <p class='normal' id='progress'>0/7 achievement unlocked</p>
   <p class='rare'>Rare achievements:</p>
   <ul class='rare' id='rare'>
   </ul>
-  <p class='rare' id='rare_progress'>0/6 rare achievement unlocked</p>
+  <p class='rare' id='rare_progress'>0/7 rare achievement unlocked</p>
   <p class='secrets' id='secrets_p'>Secret achievements:</p>
   <ul class='secrets' id='secrets'>
   </ul>
-  <p class='secrets' id='secret_progress'>0/5 secret achievement unlocked</p>
+  <p class='secrets' id='secret_progress'>0/6 secret achievement unlocked</p>
   <div id='thetrueone'>
     <p class='bugged'>THE TRUE ONE ACHIEVEMENT:</p>
     <ul class='bugged'>
@@ -253,14 +253,26 @@ const achievementList = [
   'qwerty',
   'all_normals',
   'all_rares',
-  'completed'
+  'atoms',
+  '1st-try',
+  'destruction',
+  'completed?'
 ]
-const totalN = 6
-const totalR = 6
-const totalS = 5
+const totalN = 7
+const totalR = 7
+const totalS = 6
 let amount = 0
 let secret_amount = 0
 let rare_amount = 0
+if(localStorage.getItem('destruction') === 'true') {
+  achieved('destruction', 'Self-destruction (hit your cannon)', 'normal');
+}
+if (localStorage.getItem('1st-try') === 'true') {
+  achieved('1st-try', '1st Try! (hit the target on 1st attempt)', 'rare');
+}
+if (localStorage.getItem('atoms') === 'true') {
+  achieved('atoms', 'Atoms Aligned (hit the target before 1st attempt)', 'secrets');
+}
 let nostalgic = localStorage.getItem('nostalgic')
 if (nostalgic === 'true') {
   achieved('nostalgic', 'Nostalgia (visit the first version of the website)', 'normal');
@@ -347,7 +359,7 @@ function achieved(id, text, list) {
     document.getElementById("secret_progress").textContent = secret_amount + '/' + totalS + ' secret achievements unlocked';
     if (secret_amount === totalS && localStorage.getItem('all_secrets') === null) {
       document.getElementById('thetrueone').style.display = 'block';
-      localStorage.setItem('completed', 'true')
+      localStorage.setItem('completed?', 'true')
     }
   }
 }
@@ -632,7 +644,7 @@ function checkEgg() {
       document.getElementById('h1').textContent = new_name;
     } else if (question == 'true' && /\byes\b/.test(new_name)) {
       question = 'false';
-      alert('Like, OK, i guess?');
+      alert('OK');
     } else if (new_name == 'alert("Hello, World!")') {
       alert('Hello, World!');
       question = 'false';
@@ -681,6 +693,9 @@ function checkEgg() {
     } else  if (new_name === 'how to open a door') {
       question = 'false';
       window.open('https://www.youtube.com/watch?v=Wof0xPUmW38');
+    } else if (new_name === 'cannon') {
+      question = false;
+      window.open('https://artemdev52.github.io/gravity-experiments/cannon.html');
     } else if (new_name === 'drift') {
       window.open('https://artemdev52.github.io/gravity-experiments/drift.html');
     } else if (new_name === 'space') {
