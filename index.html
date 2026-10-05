@@ -168,8 +168,9 @@ button {
   <div id='box' style='width: 208px'>
     <button class='butin' id="btn1" onclick="buttonclick()">Clicks: 0</button>
     <button class='butin' onclick="reset()">Reset click counter</button>
-    <p id='high'>Your best score: [undefined]</p>
-    <p id='low'>Your worst score: 0</p>
+    <p style='margin-bottom: 0;' id='cps'>Clicks per second: 0</p>
+    <p style='margin-bottom: 0;' id='high'>Your best score: 0</p>
+    <p style='margin-bottom: 0;' id='low'>Your worst score: 0</p>
     <button class='butin' onclick='reset_highscore()'>Reset best score</button>
   </div>
   <p class='base64'>SSBzdWNjZWVkZWQgaW4gd2FzdGluZyB5b3VyIHRpbWUh</p>
@@ -423,6 +424,7 @@ function rotate() {
   }
 }
 let clicks = 0;
+let cps=0
 let high_score = Number(localStorage.getItem('high_clicks'));
 let low_score = Number(localStorage.getItem('low_clicks'))
 function buttonclick() {
@@ -455,6 +457,14 @@ function buttonclick() {
       achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
     }
   }
+  cps += 0.2;
+  cps = Math.round(cps*10)/10
+  document.getElementById('cps').textContent = 'Clicks per second: ' + cps;
+  setTimeout(() => {
+    cps -= 0.2;
+    cps = Math.round(cps*10)/10
+  document.getElementById('cps').textContent = 'Clicks per second: ' + cps;
+  }, 5000)
 }
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 document.getElementById('low').textContent = 'Your worst score: ' + low_score
