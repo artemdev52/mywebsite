@@ -457,14 +457,12 @@ function buttonclick() {
       achieved('got1000', 'Click Machine (reach 1000 clicks)', 'normal');
     }
   }
-  cps += 0.2;
-  cps = Math.round(cps*10)/10
+  cps += 1
   document.getElementById('cps').textContent = 'Clicks per second: ' + cps;
   setTimeout(() => {
-    cps -= 0.2;
-    cps = Math.round(cps*10)/10
+    cps -= 1
   document.getElementById('cps').textContent = 'Clicks per second: ' + cps;
-  }, 5000)
+  }, 1000)
 }
 document.getElementById('high').textContent = 'Your best score: ' + high_score
 document.getElementById('low').textContent = 'Your worst score: ' + low_score
